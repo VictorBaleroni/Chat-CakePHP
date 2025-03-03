@@ -1,1 +1,19 @@
 {% do _view.assign('title', 'Home') %}
+
+{{ helper_html_css('login') }}
+
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form>
+    <h3>Login Here</h3>
+
+    <label for="username">Username</label>
+    <input type="email" placeholder="Email" id="username">
+
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password">
+
+    <button>Log In</button>
+</form>
