@@ -3,20 +3,16 @@ declare(strict_types=1);
 
 use Migrations\BaseMigration;
 
-class User extends BaseMigration
+class Message extends BaseMigration
 {
+    
     public function change(): void {
-        $table = $this->table('users');
-        $table->addColumn('name', 'string', [
-            'limit' => 100,
+        $table = $this->table('messages');
+        $table->addColumn('msg', 'string', [
             'null' => false,
-        ]);
-        $table->addColumn('email', 'string', [
-            'limit' => 200,
-            'null' => false,
-        ]);
-        $table->addColumn('password', 'string', [
             'limit' => 255,
+        ]);
+        $table->addColumn('user_id', 'integer', [
             'null' => false,
         ]);
         $table->addColumn('created_at', 'timestamp', [
@@ -26,8 +22,9 @@ class User extends BaseMigration
             'default' => 'CURRENT_TIMESTAMP',
             'update' => 'CURRENT_TIMESTAMP',
         ]);
-
-        $table->addIndex('email', ['unique' => true]);
+        $table->addForeignKey('user_id', 'users', 'id', [
+            'delete' => 'CASCADE',
+        ]);
         $table->create();
     }
 }
