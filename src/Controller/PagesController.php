@@ -7,34 +7,21 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 
 class PagesController extends AppController {
-    public function display(string ...$path): ?Response {
-        if (!$path) {
-            return $this->redirect('/');
-        }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
 
-        if (!empty($path[0])) {
-            $page = $path[0];
-        }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-        
-        $this->set(compact('page', 'subpage'));
+        $this->Authentication->allowUnauthenticated(['view', 'index']);
+    }
 
-        try {
-            return $this->render(implode('/', $path));
-        } catch (MissingTemplateException $exception) {
-            if (Configure::read('debug')) {
-                throw $exception;
-            }
-            throw new NotFoundException();
-        }
+    public function index() {
+        // $tableUsers = TableRegistry::getTableLocator()->get('users');
+
+        // $this->set(compact('posts'));
+        $this->render('home');
     }
 }
