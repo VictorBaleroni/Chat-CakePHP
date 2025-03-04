@@ -19,9 +19,10 @@ class PagesController extends AppController {
     }
 
     public function index() {
-        // $tableUsers = TableRegistry::getTableLocator()->get('users');
+        //  $tableUsers = TableRegistry::getTableLocator()->get('Users');
+        //  $users = $tableUsers->find()->all();
 
-        // $this->set(compact('posts'));
+        //  $this->set(compact('users'));
         $this->render('home');
     }
 }
