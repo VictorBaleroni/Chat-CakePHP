@@ -49,7 +49,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             
             ->add(new ErrorHandlerMiddleware(Configure::read('Error'), $this))
 
-            
             ->add(new AssetMiddleware([
                 'cacheTime' => Configure::read('Asset.cacheTime'),
             ]))
@@ -57,52 +56,52 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new RoutingMiddleware($this))
 
             ->add(new BodyParserMiddleware())
-            // If you are using Authentication it should be *before* Authorization.
-            ->add(new AuthenticationMiddleware($this))
-          
+            
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
-            ]));
+            ]))
+            // If you are using Authentication it should be *before* Authorization.
+            ->add(new AuthenticationMiddleware($this));
 
         return $middlewareQueue;
     }
 
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
-    {
-        $service = new AuthenticationService();
+{
+    $service = new AuthenticationService();
 
-        // Define where users should be redirected to when they are not authenticated
-        $service->setConfig([
-            'unauthenticatedRedirect' => Router::url([
-                    'prefix' => false,
-                    'plugin' => null,
-                    'controller' => 'Users',
-                    'action' => 'login',
-            ]),
-            'queryParam' => 'redirect',
-        ]);
-
-        $fields = [
-            AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
-            AbstractIdentifier::CREDENTIAL_PASSWORD => 'password'
-        ];
-        // Load the authenticators. Session should be first.
-        $service->loadAuthenticator('Authentication.Session');
-        $service->loadAuthenticator('Authentication.Form', [
-            'fields' => $fields,
-            'loginUrl' => Router::url([
+    // Define where users should be redirected to when they are not authenticated
+    $service->setConfig([
+        'unauthenticatedRedirect' => Router::url([
                 'prefix' => false,
                 'plugin' => null,
                 'controller' => 'Users',
                 'action' => 'login',
-            ]),
-        ]);
+        ]),
+        'queryParam' => 'redirect',
+    ]);
 
-        // Load identifiers
-        $service->loadIdentifier('Authentication.Password', compact('fields'));
+    $fields = [
+        AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
+        AbstractIdentifier::CREDENTIAL_PASSWORD => 'password'
+    ];
+    // Load the authenticators. Session should be first.
+    $service->loadAuthenticator('Authentication.Session');
+    $service->loadAuthenticator('Authentication.Form', [
+        'fields' => $fields,
+        'loginUrl' => Router::url([
+            'prefix' => false,
+            'plugin' => null,
+            'controller' => 'Users',
+            'action' => 'login',
+        ]),
+    ]);
 
-        return $service;
-    }
+    // Load identifiers
+    $service->loadIdentifier('Authentication.Password', compact('fields'));
+
+    return $service;
+}
     
     public function services(ContainerInterface $container): void
     {

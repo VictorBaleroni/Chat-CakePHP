@@ -13,9 +13,9 @@ class UserSeed extends BaseSeed
     {
         $data = [];
 
-        $data['name'] = 'user';
-        $data['email'] = 'user@user.com';
-        $data['password'] = password_hash('12345678', PASSWORD_DEFAULT);
+        $data['name'] = 'victor';
+        $data['email'] = 'victor@victor.com';
+        $data['password'] = password_hash('123456', PASSWORD_DEFAULT);
 
         $table = $this->table('users');
         $table->insert($data)->save();

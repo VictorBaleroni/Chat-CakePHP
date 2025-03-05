@@ -2,21 +2,10 @@
 
 {{ helper_html_css('home') }}
 
-<div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
+{{ helper_Identity_get('name') }}
+
+<div>
+    <form action="/logout">
+        <input type="submit" value="Login" />
+    </form>
 </div>
-<form>
-    <h3>Login Here</h3>
-    <label for="username">Name</label>
-    <input type="text" placeholder="Name" id="username">
-    
-    <label for="email">Email</label>
-    <input type="email" placeholder="Email" id="email">
-
-    <label for="password">Password</label>
-    <input type="password" placeholder="Password" id="password">
-
-    <button>Log In</button>
-</form>
-

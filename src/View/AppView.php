@@ -10,5 +10,7 @@ class AppView extends TwigView{
     
     public function initialize(): void{
         parent::initialize();
+
+        $this->loadHelper('Authentication.Identity');
     }
 }

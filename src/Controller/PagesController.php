@@ -11,12 +11,12 @@ use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 
 class PagesController extends AppController {
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
+    // public function beforeFilter(\Cake\Event\EventInterface $event)
+    // {
+    //     parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['view', 'index']);
-    }
+    //     $this->Authentication->allowUnauthenticated(['pages', 'index']);
+    // }
 
     public function index() {
         //  $tableUsers = TableRegistry::getTableLocator()->get('Users');
