@@ -1,36 +1,24 @@
 {% do _view.assign('title', 'Login') %}
 
-{#{ helper_html_css('login') }#}
+{{ helper_html_css('login') }}
 
-<div class="users form content">
-    {{ helper_Form_create() }}
-    <fieldset>
-        <legend>{{ __('Please enter your email and password') }}</legend>
-         {{ helper_Form_control('email') }}
-         {{ helper_Form_control('password') }} 
-    </fieldset>
-    {{ helper_Form_button(__('login')) }}
-    {{ helper_Form_end() }}
-</div>
+{#{ helper_Form_control('email') }}
+{{ helper_Form_control('password') }#} 
 
-
-
-{#
-<div class="background">
+    <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
-</div>
-<form>
+    </div>
+    <div class="form">
     <h3>Login Here</h3>
-    <label for="username">Name</label>
-    <input type="text" placeholder="Name" id="username">
-    
+    {{ helper_Form_create() }}
+
     <label for="email">Email</label>
-    <input type="email" placeholder="Email" id="email">
+    <input type="email" name="email" placeholder="Email" id="email">
 
     <label for="password">Password</label>
-    <input type="password" placeholder="Password" id="password">
+    <input type="password" name="password" placeholder="Password" id="password">
 
-    <button>Log In</button>
-</form>
-#}
+    {{ helper_Form_button(__('login')) }}
+    {{ helper_Form_end() }}
+    </div>

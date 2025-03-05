@@ -1,0 +1,6 @@
+
+{% if !isset(params['escape']) || params['escape'] !== false %}
+    {% do message = h($message) %}
+{% endif %}
+
+<div class="message error" onclick="this.classList.add('hidden');">{{ message }}</div>
