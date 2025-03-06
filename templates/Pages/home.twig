@@ -3,9 +3,20 @@
 {{ helper_html_css('home') }}
 
 {{ helper_Identity_get('name') }}
+<br>
+{{ helper_Identity_get('email') }}
+<br>
+{{ helper_Identity_get('id') }}
+
+
 
 <div>
-    <form action="/logout">
-        <input type="submit" value="Login" />
-    </form>
+    {{ helper_Form_create(null, {
+        'url' : {
+            'controller' : 'Users',
+            'action' : 'logout',
+            },})
+    }}
+        <input type="submit" value="logout"/>
+    {{ helper_Form_end() }}
 </div>

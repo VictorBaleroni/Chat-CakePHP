@@ -85,11 +85,12 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
+
+.button{
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
     color: #080710;
+    background-color: #ffffff;
     padding: 10px 0;
     font-size: 18px;
     font-weight: 600;
