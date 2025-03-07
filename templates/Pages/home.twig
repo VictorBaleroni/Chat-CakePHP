@@ -8,15 +8,14 @@
 <br>
 {{ helper_Identity_get('id') }}
 
-
-
 <div>
     {{ helper_Form_create(null, {
         'url' : {
             'controller' : 'Users',
             'action' : 'logout',
-            },})
+        }})
     }}
         <input type="submit" value="logout"/>
     {{ helper_Form_end() }}
 </div>
+

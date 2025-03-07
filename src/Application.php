@@ -66,8 +66,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         return $middlewareQueue;
     }
 
-    public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
-{
+public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface{
     $service = new AuthenticationService();
 
     // Define where users should be redirected to when they are not authenticated
@@ -96,14 +95,12 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'action' => 'login',
         ]),
     ]);
-
     // Load identifiers
     $service->loadIdentifier('Authentication.Password', compact('fields'));
 
     return $service;
 }
     
-    public function services(ContainerInterface $container): void
-    {
+    public function services(ContainerInterface $container): void{
     }
 }
