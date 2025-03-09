@@ -14,7 +14,6 @@ class UsersController extends AppController{
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
-            $this->Flash->success(__('Login successful'));
             $redirect = $this->Authentication->getLoginRedirect() ?? '/pages';
             if ($redirect) {
                 return $this->redirect($redirect);
