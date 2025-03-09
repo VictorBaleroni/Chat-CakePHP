@@ -37,6 +37,18 @@ body{
     right: -30px;
     bottom: -80px;
 }
+.flash{
+    flex: auto;
+    justify-items: center;
+    align-items: center;
+    padding-top: 5px;
+}
+.error p{
+    color: #ff0000;
+}
+.success p{
+    color: #2bbd32;
+}
 .form{
     height: 520px;
     width: 400px;
