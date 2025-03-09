@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
 
+
 class PagesController extends AppController {
     public function index() {
         //   $tableUsers = TableRegistry::getTableLocator()->get('Users');

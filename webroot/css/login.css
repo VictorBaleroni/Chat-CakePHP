@@ -46,9 +46,6 @@ body{
 .error p{
     color: #ff0000;
 }
-.success p{
-    color: #2bbd32;
-}
 .form{
     height: 520px;
     width: 400px;
@@ -76,7 +73,6 @@ body{
     line-height: 42px;
     text-align: center;
 }
-
 label{
     display: block;
     margin-top: 30px;
@@ -97,7 +93,6 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-
 .button{
     margin-top: 50px;
     width: 100%;
@@ -109,7 +104,6 @@ input{
     border-radius: 5px;
     cursor: pointer;
 }
-
 .link-cad{
-    padding-top: 10px;
+    padding-top: 20px;
 }

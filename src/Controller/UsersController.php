@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 class UsersController extends AppController{
-
     public function beforeFilter(\Cake\Event\EventInterface $event){
         parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['login', 'logout']);
+        $this->Authentication->allowUnauthenticated(['login', 'logout', 'create']);
     }
 
     public function login(){
@@ -23,6 +22,14 @@ class UsersController extends AppController{
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid username or password'));
         }
+    }
+
+    public function create(){
+        $this->render('create_user');
+    }
+
+    public function store(){
+
     }
 
     public function logout(){
