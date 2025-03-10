@@ -1,0 +1,36 @@
+{% do _view.assign('title', 'Cadastro') %}
+
+{{ helper_html_css('createUser') }}
+
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<div class="form">
+    <h3>User Registration</h3>
+<div class="flash">
+    {{ helper_Flash_render() }}
+</div>
+{{ helper_Form_create(null, {
+    'url' : {
+        'controller' : 'Users',
+        'action' : 'store'
+    }})
+}}
+    <label for="name">name</label>
+    <input type="text" name="name" placeholder="name" id="name">
+    <label for="email">Email</label>
+    <input type="email" name="email" placeholder="Email" id="email">
+    <label for="password">Password</label>
+    <input type="password" name="password" placeholder="Password" id="password">
+    <button class="button" type="submit">Login</button>
+{{ helper_Form_end() }}
+<div class="link-cad">
+    {{ helper_Html_link(
+        'Já tem uma conta? Clique aqui!',{
+        'controller' : 'Users',
+        'action' : 'login'
+        })
+    }}
+    </div>
+</div>
