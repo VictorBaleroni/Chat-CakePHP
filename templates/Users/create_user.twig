@@ -11,6 +11,7 @@
 <div class="flash">
     {{ helper_Flash_render() }}
 </div>
+
 {{ helper_Form_create(null, {
     'url' : {
         'controller' : 'Users',
@@ -25,6 +26,7 @@
     <input type="password" name="password" placeholder="Password" id="password">
     <button class="button" type="submit">Login</button>
 {{ helper_Form_end() }}
+
 <div class="link-cad">
     {{ helper_Html_link(
         'Já tem uma conta? Clique aqui!',{
