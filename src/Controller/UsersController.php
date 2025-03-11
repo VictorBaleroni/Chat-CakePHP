@@ -15,7 +15,7 @@ class UsersController extends AppController{
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
-            $redirect = $this->Authentication->getLoginRedirect() ?? '/pages';
+            $redirect = $this->Authentication->getLoginRedirect() ?? '/home';
             if ($redirect) {
                 return $this->redirect($redirect);
             }
@@ -33,6 +33,7 @@ class UsersController extends AppController{
     public function store(){
         $tableUsers = TableRegistry::getTableLocator()->get('Users');
         $user = $tableUsers->newEmptyEntity();
+
         $requestUser = $this->request->getData();
         $user->name = $requestUser['name'];
         $user->email = $requestUser['email'];
