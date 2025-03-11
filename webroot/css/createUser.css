@@ -26,7 +26,7 @@ body{
         #23a2f6
     );
     left: -80px;
-    top: -80px;
+    top: -150px;
 }
 .shape:last-child{
     background: linear-gradient(
@@ -35,16 +35,7 @@ body{
         #f09819
     );
     right: -30px;
-    bottom: -80px;
-}
-.flash{
-    flex: auto;
-    justify-items: center;
-    align-items: center;
-    padding-top: 5px;
-}
-.error p{
-    color: #ff0000;
+    bottom: -150px;
 }
 .form{
     height: 620px;

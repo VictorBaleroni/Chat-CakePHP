@@ -8,9 +8,6 @@
 </div>
 <div class="form">
     <h3>User Registration</h3>
-<div class="flash">
-    {{ helper_Flash_render() }}
-</div>
 
 {{ helper_Form_create(null, {
     'url' : {
@@ -24,7 +21,7 @@
     <input type="email" name="email" placeholder="Email" id="email">
     <label for="password">Password</label>
     <input type="password" name="password" placeholder="Password" id="password">
-    <button class="button" type="submit">Login</button>
+    <button class="button" type="submit">Criar</button>
 {{ helper_Form_end() }}
 
 <div class="link-cad">
