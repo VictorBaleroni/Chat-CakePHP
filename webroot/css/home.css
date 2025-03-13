@@ -60,8 +60,7 @@ nav .wrapper{
   visibility: hidden;
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
-.nav-links li:hover .drop-menu,
-.nav-links li:hover .mega-box{
+.nav-links li:hover .drop-menu{
   transition: all 0.3s ease;
   top: 70px;
   opacity: 1;
@@ -70,30 +69,23 @@ nav .wrapper{
 .drop-menu li a{
   width: 100%;
   display: block;
-  padding: 0 0 0 15px;
   font-weight: 400;
   border-radius: 0px;
+  text-align: center;
 }
-.mega-box{
-  position: absolute;
-  left: 0;
+.drop-menu li input{
   width: 100%;
-  padding: 0 30px;
-  top: 85px;
-  opacity: 0;
-  visibility: hidden;
-}
-.mega-box .content{
+  display: block;
   background: #242526;
-  padding: 25px 20px;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 16px 32px;
+  border: none;
+  font-size: 18px;
+  text-align: center;
 }
-.mega-box .content .row{
-  width: calc(25% - 30px);
-  line-height: 45px;
+.drop-menu li input:hover{
+  background: #3A3B3C;
 }
 .content .row img{
   width: 100%;
@@ -133,7 +125,6 @@ nav .wrapper{
   right: 30px;
   top: 10px;
 }
-
 @media screen and (max-width: 970px) {
   .wrapper .btn{
     display: block;
@@ -236,7 +227,6 @@ nav .wrapper{
 nav input{
   display: none;
 }
-
 .body-text{
   position: absolute;
   top: 50%;

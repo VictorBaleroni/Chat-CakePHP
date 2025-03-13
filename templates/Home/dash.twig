@@ -2,15 +2,6 @@
 
 {{ helper_html_css('home') }}
 
-{{ helper_Form_create(null, {
-    'url' : {
-        'controller' : 'Users',
-        'action' : 'logout'}
-    })
- }}
- <button class="button" type="submit">Logout</button>
-{{ helper_Form_end() }}
-
 <nav>
   <div class="wrapper">
     <div class="logo"><a href="#">Logo</a></div>
@@ -18,21 +9,27 @@
     <input type="radio" name="slider" id="close-btn">
     <ul class="nav-links">
       <li>
-        <a href="#" class="desktop-item">Dropdown Menu</a>
+        <a href="" class="desktop-item">Dropdown Menu</a>
         <input type="checkbox" id="showDrop">
         <label for="showDrop" class="mobile-item">Dropdown Menu</label>
         <ul class="drop-menu">
-          <li><a href="#">Drop menu 1</a></li>
-          <li><a href="#">Drop menu 2</a></li>
-          <li><a href="#">Drop menu 3</a></li>
-          <li><a href="#">Drop menu 4</a></li>
+          <li><a href="#">Profile</a></li>
+          <li>
+            {{ helper_Form_create(null, {
+                'url' : {
+                'controller' : 'Users',
+                'action' : 'logout'}
+                }) }}
+              <input type="submit"  value="Logout">
+            {{ helper_Form_end() }}
+          </li>
         </ul>
       </li>
     </ul>
     <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
   </div>
 </nav>
-  
+
   <div class="body-text">
     <div class="title">Responsive Dropdown and Mega Menu</div>
     <div class="sub-title">using only HTML & CSS</div>
