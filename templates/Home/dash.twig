@@ -7,7 +7,7 @@
     <div class="logo"><a href="#">Chat</a></div>
     <ul class="nav-links">
       <li>
-        <a href="" class="desktop-item">Usuario: fulano</a>
+        <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
         <ul class="drop-menu">
           <li><a href="#">Profile</a></li>
           <li>
@@ -40,9 +40,9 @@
     <li>  
       <a href="#">
         <i class="fa fa-cogs fa-2x"></i>
-          <span class="nav-text">
-            Tools & Resources
-          </span>
+        <span class="nav-text">
+          Tools & Resources
+        </span>
       </a>
     </li>
   </ul>
@@ -60,5 +60,19 @@
 </nav>
 
 <div class="body-text">
-  <h1>teste primario com o dash</h1>
+  <div class="text-messages">
+
+    <div id="content" class="flex flex-col flex-grow h-0 p-4 overflow-auto">
+      teste de com
+    </div>
+
+  </div>
+  
+  <div class="chat-box">
+    <form action="">
+      <input type="text">
+      <input type="submit" value="env">
+    </form>
+  </div>
 </div>
+
