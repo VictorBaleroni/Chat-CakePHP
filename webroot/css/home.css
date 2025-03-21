@@ -7,6 +7,7 @@
 }
 body{
   height: 150vh;
+  
 }
 nav{
   position: fixed;
@@ -188,5 +189,14 @@ nav .wrapper{
 .chat-box{
   display: flex;
   justify-content: center;
-  
+}
+
+.chat-box form{
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  background: #242526;
 }
