@@ -70,10 +70,12 @@
   
   <div class="chat-box">
     <form>
-      <input type="text">
-      <input type="submit" value="env">
+      <div class="chat-input-box">
+        <input class="chat-input" placeholder="message..." type="text">
+        <input class="button-chat" type="submit" value="env">
+      </div>
     </form>
   </div>
 </div>
 
-{{ helper_html_script('') }}
+{{ helper_html_script('chat-message') }}
