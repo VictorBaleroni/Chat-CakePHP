@@ -62,17 +62,25 @@
 <div class="body-text">
   <div class="text-messages">
 
-    <div id="content" class="flex flex-col flex-grow h-0 p-4 overflow-auto">
-      teste de com
+    <div class="content">
+      <ul class="chat-messages">
+        <li class="me message">
+          <p>teste message eu</p>
+        </li>
+        <li class="other message">
+          <p>teste message tu</p>
+        </li>
+      </ul>
     </div>
 
   </div>
   
   <div class="chat-box">
-    <form>
+    <form method="post">
+      <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
       <div class="chat-input-box">
-        <input class="chat-input" placeholder="message..." type="text">
-        <input class="button-chat" type="submit" value="env">
+        <input class="chat-input" name="message" placeholder="message..." type="text">
+        <input class="chat-button" type="submit" onclick="showMessage()" value="env">
       </div>
     </form>
   </div>
