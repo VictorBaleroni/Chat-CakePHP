@@ -18,19 +18,19 @@ var area_content = document.getElementById('content');
     form.addEventListener('submit', event =>{
         event.preventDefault();
 
+        const formData = new FormData(form);
+        fetch('/addmessage', {
+            method: 'POST',
+            mode: 'cors',
+            body: formData
+        });
+
         if (input_message.value != '') {
             var msg = {'name': input_name.value, 'msg': input_message.value};
             msg = JSON.stringify(msg);
     
             conn.send(msg);
     
-        // const formData = new FormData(form);
-        // fetch('/store', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     body: formData
-        // });
-
             showMessages('me', msg);
     
             input_message.value = '';
@@ -61,3 +61,4 @@ function showMessages(how, data) {
 
     area_content.appendChild(ul);
 }
+
