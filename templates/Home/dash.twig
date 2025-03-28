@@ -62,15 +62,18 @@
 <div class="body-text">
   <div class="text-messages">
     <ul class="chat-messages">
-      {% for msg in msgs %}
-      <li class="{{ (msg.user.id == helper_Identity_get('id') ? 'me' : 'other') }} message">
-          <p>
-              {{ msg.id }} - {{ msg.msg }} - {{ msg.user.id }} 
+      {% for msge in msgs %}
+       <li class="{{ msge.user.id == helper_Identity_get('id') ? 'me' : 'other' }} message">
+        <h5>
+          {{ msge.user.id }} - {{ msge.user.name }}
+        </h5>  
+        <p>
+              {{ msge.id }} - {{ msge.msg }}
           </p> 
-      </li>
+      </li> 
       {% endfor %}
     </ul>
-    <div id="content" class="content"></div>
+  <div id="content" class="content"></div>
   </div>
 
   <div class="chat-box">
