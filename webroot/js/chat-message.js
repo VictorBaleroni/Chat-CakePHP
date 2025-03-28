@@ -2,7 +2,7 @@
 var conn = new WebSocket('ws://localhost:8080');
     
 conn.onopen = function(e) {
-    //console.log("Connection established!");
+    console.log("Connection established!");
 };
 
 conn.onmessage = function(e) {
@@ -10,19 +10,16 @@ conn.onmessage = function(e) {
     showMessages('other', e.data);
 };
 
-var formMSG = document.getElementById('formsg');
+const form = document.querySelector('#formMessage');
 var input_message = document.getElementById('msg');
 var input_name = document.getElementById('name');
-var btn_env = document.getElementById('btnenv');
 var area_content = document.getElementById('content');
-
-    const form = document.querySelector('#formMessage');
     
     form.addEventListener('submit', event =>{
         event.preventDefault();
 
-        if (inp_message.value != '') {
-            var msg = {'name': inp_name.value, 'msg': inp_message.value};
+        if (input_message.value != '') {
+            var msg = {'name': input_name.value, 'msg': input_message.value};
             msg = JSON.stringify(msg);
     
             conn.send(msg);
@@ -36,7 +33,7 @@ var area_content = document.getElementById('content');
 
             showMessages('me', msg);
     
-            inp_message.value = '';
+            input_message.value = '';
         }
     });
 
@@ -45,11 +42,11 @@ function showMessages(how, data) {
 
     console.log(data);
 
-    var div = document.createElement('div');
-    div.setAttribute('class', how);
+    var ul = document.createElement('ul');
+    ul.setAttribute('class', 'chat-messages');
 
-    var div_txt = document.createElement('div');
-    div_txt.setAttribute('class', 'text');
+    var li = document.createElement('li');
+    li.setAttribute('class', how + ' message');
 
     var h5 = document.createElement('h5');
     h5.textContent = data.name;
@@ -57,11 +54,10 @@ function showMessages(how, data) {
     var p = document.createElement('p');
     p.textContent = data.msg;
 
-    div_txt.appendChild(h5);
-    div_txt.appendChild(p);
+    li.appendChild(h5);
+    li.appendChild(p);
 
-    div.appendChild(img);
-    div.appendChild(div_txt);
+    ul.appendChild(li);
 
-    area_content.appendChild(div);
+    area_content.appendChild(ul);
 }

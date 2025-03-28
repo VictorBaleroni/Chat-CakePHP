@@ -62,7 +62,7 @@
 <div class="body-text">
   <div class="text-messages">
 
-    <div class="content">
+    <div id="content" class="content">
       <ul class="chat-messages">
         <li class="me message">
           <p>teste message eu</p>
@@ -78,9 +78,9 @@
   <div class="chat-box">
     <form id="formMessage" method="post">
       <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
-      <input type="hidden" name="name" value="{{ helper_Identity_get('name') }}">
+      <input type="hidden" id="name" name="name" value="{{ helper_Identity_get('name') }}">
       <div class="chat-input-box">
-        <input class="chat-input" name="message" placeholder="message..." type="text">
+        <input class="chat-input" id="msg" name="message" placeholder="message..." type="text">
         <input class="chat-button" type="submit" value="env">
       </div>
     </form>
