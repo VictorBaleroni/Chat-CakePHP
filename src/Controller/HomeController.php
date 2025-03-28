@@ -8,8 +8,8 @@ use Cake\ORM\TableRegistry;
 class HomeController extends AppController{
     public function index(){
         $tableMessages = TableRegistry::getTableLocator()->get('Messages');
-        $messages = $tableMessages->find();
-        $this->set(compact('messages'));
+        $msgs = $tableMessages->find()->contain(['Users']);
+        $this->set(compact('msgs'));
         $this->render('dash');
     }
 

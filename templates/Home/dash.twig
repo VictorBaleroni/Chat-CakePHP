@@ -61,21 +61,20 @@
 
 <div class="body-text">
   <div class="text-messages">
-
-    <div id="content" class="content">
-      <ul class="chat-messages">
-        <li class="me message">
-          <p>teste message eu</p>
-        </li>
-        <li class="other message">
-          <p>teste message tu</p>
-        </li>
-      </ul>
-    </div>
+    <ul class="chat-messages">
+      {% for msg in msgs %}
+      <li class="{{ (msg.user.id == helper_Identity_get('id') ? 'me' : 'other') }} message">
+          <p>
+              {{ msg.id }} - {{ msg.msg }} - {{ msg.user.id }} 
+          </p> 
+      </li>
+      {% endfor %}
+    </ul>
+    <div id="content" class="content"></div>
   </div>
 
   <div class="chat-box">
-    <form id="formMessage" action="/addmessage" method="post">
+    <form id="formMessage" method="post">
       <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
       <input type="hidden" id="name" name="name" value="{{ helper_Identity_get('name') }}">
       <div class="chat-input-box">
