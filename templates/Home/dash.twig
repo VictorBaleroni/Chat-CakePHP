@@ -76,11 +76,12 @@
   </div>
   
   <div class="chat-box">
-    <form method="post">
+    <form id="formMessage" method="post">
       <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
+      <input type="hidden" name="name" value="{{ helper_Identity_get('name') }}">
       <div class="chat-input-box">
         <input class="chat-input" name="message" placeholder="message..." type="text">
-        <input class="chat-button" type="submit" onclick="showMessage()" value="env">
+        <input class="chat-button" type="submit" value="env">
       </div>
     </form>
   </div>

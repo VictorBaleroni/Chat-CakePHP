@@ -7,11 +7,16 @@ conn.onopen = function(e) {
 
 conn.onmessage = function(e) {
 //    console.log(e.data);
-showMessages('other', e.data);
+    showMessages('other', e.data);
 };
 
-function showMessage(){
-    const form = document.querySelector('#formStore');
+var formMSG = document.getElementById('formsg');
+var input_message = document.getElementById('msg');
+var input_name = document.getElementById('name');
+var btn_env = document.getElementById('btnenv');
+var area_content = document.getElementById('content');
+
+    const form = document.querySelector('#formMessage');
     
     form.addEventListener('submit', event =>{
         event.preventDefault();
@@ -22,38 +27,26 @@ function showMessage(){
     
             conn.send(msg);
     
-            showMessages('me', msg);
-    
-            inp_message.value = '';
-        }
-
         // const formData = new FormData(form);
-        // //formData.append('numero', num);
-        
         // fetch('/store', {
         //     method: 'POST',
         //     mode: 'cors',
         //     body: formData
         // });
+
+            showMessages('me', msg);
+    
+            inp_message.value = '';
+        }
     });
-}
 
 function showMessages(how, data) {
     data = JSON.parse(data);
 
     console.log(data);
 
-    if (how == 'me') {
-        var img_src = "assets/imgs/Icon awesome-rocketchat.png";
-    } else if (how == 'other') {
-        var img_src = "assets/imgs/Icon awesome-rocketchat-1.png";
-    }
-
     var div = document.createElement('div');
     div.setAttribute('class', how);
-
-    var img = document.createElement('img');
-    img.setAttribute('src', img_src);
 
     var div_txt = document.createElement('div');
     div_txt.setAttribute('class', 'text');
