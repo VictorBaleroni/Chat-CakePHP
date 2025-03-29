@@ -65,11 +65,11 @@
       {% for msge in msgs %}
        <li class="{{ msge.user.id == helper_Identity_get('id') ? 'me' : 'other' }} message">
         <h5>
-          {{ msge.user.id }} - {{ msge.user.name }}
+          {{ msge.user.name }}
         </h5>  
         <p>
-              {{ msge.id }} - {{ msge.msg }}
-          </p> 
+          {{ msge.msg }}
+        </p> 
       </li> 
       {% endfor %}
     </ul>
