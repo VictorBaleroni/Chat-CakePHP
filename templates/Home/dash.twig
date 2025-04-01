@@ -29,8 +29,9 @@
 <nav class="main-menu">
   <ul>
     {% for user in users %}
-      <form action="" method="post">
-        <button type="submit" class="button-user" name="">
+      <form action="/home" method="post">
+        <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
+        <button type="submit" class="button-user" name="userid" value="{{ user.id }}">
         <li>
           <i class="fa fa-home fa-2x"></i>
           <p>{{ user.name }}</p>
