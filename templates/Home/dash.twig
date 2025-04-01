@@ -28,27 +28,20 @@
 
 <nav class="main-menu">
   <ul>
-    <li>
-      <a href="https://jbfarrow.com">
-        <i class="fa fa-home fa-2x"></i>
-        <span class="nav-text">
-          Community Dashboard
-        </span>
-      </a>
-    </li>
-
-    <li>  
-      <a href="#">
-        <i class="fa fa-cogs fa-2x"></i>
-        <span class="nav-text">
-          Tools & Resources
-        </span>
-      </a>
-    </li>
+    {% for user in users %}
+      <form action="" method="post">
+        <button type="submit" class="button-user" name="">
+        <li>
+          <i class="fa fa-home fa-2x"></i>
+          <p>{{ user.name }}</p>
+        </li>
+        </button>
+      </form>
+    {% endfor %}
   </ul>
 </nav>
 
-<div class="body-text">
+<div class="body-msg">
   <div class="text-messages">
     <ul class="chat-messages">
       {% for msge in msgs %}

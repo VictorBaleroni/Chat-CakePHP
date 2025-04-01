@@ -9,7 +9,11 @@ class HomeController extends AppController{
     public function index(){
         $tableMessages = TableRegistry::getTableLocator()->get('Messages');
         $msgs = $tableMessages->find()->contain(['Users'])->orderBy(['Messages.created_at' => 'ASC'])->toArray();
-        $this->set(compact('msgs'));
+
+        $tableUsers = TableRegistry::getTableLocator()->get('Users');
+        $users = $tableUsers->find()->contain(['Messages'])->toArray();
+
+        $this->set(compact('msgs', 'users'));
         $this->render('dash');
     }
 
