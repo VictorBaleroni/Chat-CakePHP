@@ -10,6 +10,5 @@ return function (RouteBuilder $routes): void {
     $routes->connect('/create', ['controller' => 'Users', 'action' => 'create']);
     $routes->connect('/store', ['controller' => 'Users', 'action' => 'store']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
-    $routes->connect('/home', ['controller' => 'Home', 'action' => 'index']);
-    $routes->connect('/addmessage', ['controller' => 'Home', 'action' => 'store']);
+    $routes->connect('/chat', ['controller' => 'Users', 'action' => 'dash']);
 };

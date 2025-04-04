@@ -12,6 +12,9 @@ class Message extends BaseMigration
             'null' => false,
             'limit' => 255,
         ]);
+        $table->addColumn('room_id', 'integer', [
+            'null' => false,
+        ]);
         $table->addColumn('user_id', 'integer', [
             'null' => false,
         ]);

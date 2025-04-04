@@ -15,7 +15,7 @@ class UsersController extends AppController{
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
-            $redirect = $this->Authentication->getLoginRedirect() ?? '/home';
+            $redirect = $this->Authentication->getLoginRedirect() ?? '/chat';
             if ($redirect) {
                 return $this->redirect($redirect);
             }
@@ -24,6 +24,10 @@ class UsersController extends AppController{
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid username or password'));
         }
+    }
+
+    public function dash(){
+        $this->render('/chat/dash');
     }
 
     public function create(){

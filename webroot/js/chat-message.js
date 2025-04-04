@@ -14,11 +14,17 @@ const form = document.querySelector('#formMessage');
 var input_message = document.getElementById('msg');
 var input_name = document.getElementById('name');
 var area_content = document.getElementById('content');
-    
+
+function saveRoomId(roomid){
+    sessionStorage.setItem("room", roomid);
+}
+var roomId = sessionStorage.getItem("room")
+
     form.addEventListener('submit', event =>{
         event.preventDefault();
 
         const formData = new FormData(form);
+        formData.append('roomid', roomId);
         fetch('/addmessage', {
             method: 'POST',
             mode: 'cors',
@@ -28,11 +34,8 @@ var area_content = document.getElementById('content');
         if (input_message.value != '') {
             var msg = {'name': input_name.value, 'msg': input_message.value};
             msg = JSON.stringify(msg);
-    
             conn.send(msg);
-    
             showMessages('me', msg);
-    
             input_message.value = '';
         }
     });

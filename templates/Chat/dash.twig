@@ -31,7 +31,7 @@
     {% for user in users %}
       <form action="/home" method="post">
         <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
-        <button type="submit" class="button-user" name="userid" value="{{ user.id }}">
+        <button type="submit" onclick="saveRoomId( {{ user.id }} )" class="button-user" name="userid" value="{{ user.id }}">
         <li>
           <i class="fa fa-home fa-2x"></i>
           <p>{{ user.name }}</p>
@@ -70,5 +70,3 @@
     </form>
   </div>
 </div>
-
-{{ helper_html_script('chat-message') }}
