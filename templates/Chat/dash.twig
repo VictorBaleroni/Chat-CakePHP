@@ -68,7 +68,8 @@
 
 <script>
   //WebSocket
-var conn = new WebSocket('ws://localhost:8090');
+const userToken = {{ token|json_encode()|raw }};
+var conn = new WebSocket("ws://127.0.0.1:8090/?token=" + userToken);
 
 var me_user_id = "{{ helper_Identity_get('id') }}";
 

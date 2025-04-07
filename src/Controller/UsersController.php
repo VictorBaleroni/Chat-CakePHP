@@ -16,14 +16,6 @@ class UsersController extends AppController{
         $result = $this->Authentication->getResult();
         
         if ($result->isValid()) {
-                $tableUsers = TableRegistry::getTableLocator()->get('Users');
-
-                $userToken = md5(uniqid());
-                $user = $tableUsers->get($this->Authentication->getIdentity()->id);
-
-                $user->token = $userToken;
-                $tableUsers->save($user);
-
             $redirect = $this->Authentication->getLoginRedirect() ?? '/chat';
             if ($redirect) {
                 return $this->redirect($redirect);
@@ -36,6 +28,14 @@ class UsersController extends AppController{
     }
 
     public function dash(){
+        $tableUsers = TableRegistry::getTableLocator()->get('Users');
+            $userToken = md5(uniqid());
+            $user = $tableUsers->get($this->Authentication->getIdentity()->id);
+            $user->token = $userToken;
+            $tableUsers->save($user);
+
+        $this->set('token', $userToken);
+
         $this->render('/chat/dash');
     }
 
