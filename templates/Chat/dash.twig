@@ -76,10 +76,12 @@ var me_user_id = "{{ helper_Identity_get('id') }}";
 var other_user_id = "";
     
 conn.onopen = function(e) {
-    console.log("Connection established!");
+  console.log("Connection established!");
 };
 
 conn.onmessage = function(e) {
-
+  var data = JSON.parse(e.data);
+  
+  console.log(data);
 };
 </script>

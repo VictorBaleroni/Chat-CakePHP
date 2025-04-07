@@ -27,21 +27,26 @@ class ChatServer implements MessageComponentInterface{
             $tableUsers->updateAll(
             ['conn_id' => $conn->resourceId],
             ['token' => $uriarray['token']]);
-            
-            // $userToken->conn_id = $conn->resourceId;
-            // $tableUsers->save($userToken);
 
-            echo "New connection! ({$conn->resourceId}), ({$uriarray['token']})\n";           
+            $users_id = $tableUsers->find()->select(['id'])
+            ->where(['token' => $uriarray['token']])->all();
+
+            $send_data['id'] = $users_id;
+
+            foreach($this->clients as $client){
+                    if($client->resourceId != $conn->resourceId)
+                    {
+                        $client->send(json_encode($send_data));
+                    }
+                }
+
+            echo "New connection! ({$conn->resourceId}), ({$uriarray['token']})\n";    
         }
     }
 
-    public function onMessage(ConnectionInterface $conn, $msg)
-    {
-        foreach ($this->clients as $client) {
-            if ($conn !== $client) {
-                $client->send($msg);
-            }
-        }
+    public function onMessage(ConnectionInterface $conn, $msg){
+        $data = json_decode($msg);
+        
     }
 
     public function onClose(ConnectionInterface $conn)
@@ -54,10 +59,9 @@ class ChatServer implements MessageComponentInterface{
         if(isset($uriarray['token'])){
 
             $tableUsers = TableRegistry::getTableLocator()->get('Users');
-            $user = $tableUsers->get(5);
-            
-            $user->conn_id = 0;
-            $tableUsers->save($user);
+            $tableUsers->updateAll(
+            ['conn_id' => 0],
+            ['token' => $uriarray['token']]);
 
             echo "Connection {$conn->resourceId} has disconnected\n";
         }
