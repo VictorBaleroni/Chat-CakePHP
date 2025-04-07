@@ -14,7 +14,16 @@ class UsersController extends AppController{
     public function login(){
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
+        
         if ($result->isValid()) {
+                $tableUsers = TableRegistry::getTableLocator()->get('Users');
+
+                $userToken = md5(uniqid());
+                $user = $tableUsers->get($this->Authentication->getIdentity()->id);
+
+                $user->token = $userToken;
+                $tableUsers->save($user);
+
             $redirect = $this->Authentication->getLoginRedirect() ?? '/chat';
             if ($redirect) {
                 return $this->redirect($redirect);
@@ -44,7 +53,7 @@ class UsersController extends AppController{
         $user->password = $requestUser['password'];
         $tableUsers->save($user);
 
-        $this->render('login');
+        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
 
     public function logout(){

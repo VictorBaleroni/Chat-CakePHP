@@ -19,6 +19,8 @@ class User extends BaseMigration
             'limit' => 255,
             'null' => false,
         ]);
+        $table->addColumn('token', 'string');
+        $table->addColumn('conn_id', 'integer');
         $table->addColumn('created_at', 'timestamp', [
             'default' => 'CURRENT_TIMESTAMP',
         ]);

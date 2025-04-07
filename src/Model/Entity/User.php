@@ -12,6 +12,8 @@ class User extends Entity
         'name' => true,
         'email' => true,
         'password' => true,
+        'token' => true,
+        'conn_id' => true,
         'created_at' => true,
         'updated_at' => true,
         'messages' => true,

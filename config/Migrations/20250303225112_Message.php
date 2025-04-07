@@ -12,9 +12,8 @@ class Message extends BaseMigration
             'null' => false,
             'limit' => 255,
         ]);
-        $table->addColumn('room_id', 'integer', [
-            'null' => false,
-        ]);
+        $table->addColumn('me_user_id', 'integer');
+        $table->addColumn('other_user_id', 'integer');
         $table->addColumn('user_id', 'integer', [
             'null' => false,
         ]);
@@ -25,9 +24,7 @@ class Message extends BaseMigration
             'default' => 'CURRENT_TIMESTAMP',
             'update' => 'CURRENT_TIMESTAMP',
         ]);
-        $table->addForeignKey('user_id', 'users', 'id', [
-            'delete' => 'CASCADE',
-        ]);
+        $table->addForeignKey('user_id', 'users', 'id');
         $table->create();
     }
 }

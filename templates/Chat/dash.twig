@@ -28,33 +28,28 @@
 
 <nav class="main-menu">
   <ul>
-    {% for user in users %}
-      <form action="/home" method="post">
+      <form action="" method="post">
         <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
-        <button type="submit" onclick="saveRoomId( {{ user.id }} )" class="button-user" name="userid" value="{{ user.id }}">
+        <button type="submit" class="button-user" name="userid" value="">
         <li>
           <i class="fa fa-home fa-2x"></i>
-          <p>{{ user.name }}</p>
+          <p>teste</p>
         </li>
         </button>
       </form>
-    {% endfor %}
   </ul>
 </nav>
 
 <div class="body-msg">
   <div class="text-messages">
     <ul class="chat-messages">
-      {% for msge in msgs %}
-       <li class="{{ msge.user.id == helper_Identity_get('id') ? 'me' : 'other' }} message">
         <h5>
-          {{ msge.user.name }}
+          teste
         </h5>  
         <p>
-          {{ msge.msg }}
+          teste
         </p>
       </li> 
-      {% endfor %}
     </ul>
   <div id="content" class="content"></div>
   </div>
@@ -70,3 +65,20 @@
     </form>
   </div>
 </div>
+
+<script>
+  //WebSocket
+var conn = new WebSocket('ws://localhost:8090');
+
+var me_user_id = "{{ helper_Identity_get('id') }}";
+
+var other_user_id = "";
+    
+conn.onopen = function(e) {
+    console.log("Connection established!");
+};
+
+conn.onmessage = function(e) {
+
+};
+</script>

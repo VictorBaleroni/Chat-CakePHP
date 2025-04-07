@@ -9,6 +9,8 @@ class Message extends Entity
 {
     protected array $_accessible = [
         'msg' => true,
+        'me_user_id' => true,
+        'other_user_id' => true,
         'user_id' => true,
         'created_at' => true,
         'updated_at' => true,
