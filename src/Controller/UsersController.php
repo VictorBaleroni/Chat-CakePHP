@@ -34,7 +34,7 @@ class UsersController extends AppController{
             $user->token = $userToken;
             $tableUsers->save($user);
 
-        $this->set('token', $userToken);
+        $this->set('token', $user->token);
 
         $this->render('/chat/dash');
     }

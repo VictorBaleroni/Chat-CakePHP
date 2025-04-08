@@ -72,7 +72,7 @@
 
 <script>
   //WebSocket
-const userToken = '{{ token|json_encode()|raw }}';
+const userToken = {{ token|json_encode()|raw }};
 
 var conn = new WebSocket("ws://127.0.0.1:8090/?token=" + userToken);
 
@@ -82,25 +82,32 @@ var other_user_id = "";
     
 conn.onopen = function(e) {
   console.log("Connection established!");
-
   load_users_list(me_user_id);
 };
 
 conn.onmessage = function(e) {
   var data = JSON.parse(e.data);
-
-  if(data.status){
+    
     if(data.response_load_users || data.response_search_user){
         var html = '';
-      if(data.data_user.length > 0){
-
+        if(data.data_user.length > 0){
+        html += '<ul>';
+          for(var count = 0; count < data.data_user.length; count++){
+            html += `
+            <li>
+              <div>
+                <div class="col col-9">`+data.data_user[count].name+`</div>
+              </div>
+            </li>
+            `;
+          }
+        html += '</ul>';
       }else{
         html = 'No User Found';
       }
 
       document.getElementById('user_list_area').innerHTML = html;
     }
-  }
 
 };
 

@@ -8,13 +8,11 @@ use Cake\ORM\TableRegistry;
 class ChatServer implements MessageComponentInterface{
     protected $clients;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->clients = new \SplObjectStorage;
     }
 
-    public function onOpen(ConnectionInterface $conn)
-    {
+    public function onOpen(ConnectionInterface $conn){
         $this->clients->attach($conn);
        
         $uristring = $conn->httpRequest->getUri()->getQuery();
@@ -23,9 +21,11 @@ class ChatServer implements MessageComponentInterface{
         
         if(isset($uriarray['token'])){
             $tableUsers = TableRegistry::getTableLocator()->get('Users');
+            
             $tableUsers->updateAll(
-            ['conn_id' => $conn->resourceId],
-            ['token' => $uriarray['token']]);
+                ['conn_id' => $conn->resourceId],
+                ['token' => $uriarray['token']]
+            );
 
             $users_id = $tableUsers->find()->select(['id'])
             ->where(['token' => $uriarray['token']])->all();
@@ -33,17 +33,17 @@ class ChatServer implements MessageComponentInterface{
             $send_data['id'] = $users_id;
 
             foreach($this->clients as $client){
-                    if($client->resourceId != $conn->resourceId){
-                        $client->send(json_encode($send_data));
-                    }
+                if($client->resourceId != $conn->resourceId){
+                    $client->send(json_encode($send_data));
                 }
+            }
 
             echo "New connection! ({$conn->resourceId}), ({$uriarray['token']})\n";    
         }
     }
 
     public function onMessage(ConnectionInterface $conn, $msg){
-        $data = json_decode($msg);
+    $data = json_decode($msg);
         
     if(isset($data->type)){
         if($data->type == 'request_users_list'){
@@ -51,9 +51,9 @@ class ChatServer implements MessageComponentInterface{
 
             $userData = $usersTable->find()
                 ->select(['id', 'name'])
-                ->where(['id !=' => $data->me_user_id])
+                ->where(['id NOT IN' => $data->me_user_id])
                 ->orderByAsc('name')
-                ->all();
+                ->all()->toArray();
 
             $item_data = array();
 
@@ -64,16 +64,14 @@ class ChatServer implements MessageComponentInterface{
                 );
             }
 
-            $sender_user_conn = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all();
+            $sender_user_conn = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all()->toArray();
 
             $response_data['data_user'] = $item_data;
 
             $response_data['response_load_users'] = true;
 
-            foreach($this->clients as $client)
-                {
-                    if($client->resourceId == $sender_user_conn[0]->conn_id)
-                    {
+            foreach($this->clients as $client){
+                    if($client->resourceId == $sender_user_conn[0]->conn_id){
                         $client->send(json_encode($response_data));
                     }
                 }
@@ -83,11 +81,11 @@ class ChatServer implements MessageComponentInterface{
             
         }
     }
-    }
+}
 
-    public function onClose(ConnectionInterface $conn)
-    {
+    public function onClose(ConnectionInterface $conn){
         $this->clients->detach($conn);
+
         $uristring = $conn->httpRequest->getUri()->getQuery();
 
         parse_str($uristring, $uriarray);
@@ -103,8 +101,7 @@ class ChatServer implements MessageComponentInterface{
         }
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e)
-    {
+    public function onError(ConnectionInterface $conn, \Exception $e){
         echo "Erro: {$e->getMessage()}\n";
         $conn->close();
     }

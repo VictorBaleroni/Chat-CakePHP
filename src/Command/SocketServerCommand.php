@@ -25,7 +25,7 @@ class SocketServerCommand extends Command
             8090
         );
 
-        $io->out('Servidor WebSocket rodando na porta 8080');
+        $io->out('Servidor WebSocket rodando na porta 8090');
         $server->run();
     }
 }
