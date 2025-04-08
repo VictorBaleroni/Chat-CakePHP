@@ -178,11 +178,11 @@ nav {
   display: flex;
   justify-content: center;
 }
-.chat-box form{
+.form-msg{
   display: flex;
   justify-content: center;
   bottom: 0;
-  height: 80px;
+  height: 90px;
   position: fixed;
   width: 100%;
   background: #2b2c2c;
@@ -191,7 +191,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 70%;
 }
 .chat-input{
   border:none !important;

@@ -1,6 +1,6 @@
 {% do _view.assign('title', 'Chat') %}
 
-{{ helper_html_css('home') }}
+{{ helper_html_css('chat') }}
 
 <nav>
   <div class="wrapper">
@@ -27,9 +27,14 @@
 </nav>
 
 <nav class="main-menu">
+  <div>
+    <input type="text" autocomplete="off" placeholder="Search..." onkeyup="search_user('{{ helper_Identity_get('id') }}', this.value);">
+  </div>
+
+  <div id="user_list_area"></div>
+  
   <ul>
       <form action="" method="post">
-        <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
         <button type="submit" class="button-user" name="userid" value="">
         <li>
           <i class="fa fa-home fa-2x"></i>
@@ -43,6 +48,7 @@
 <div class="body-msg">
   <div class="text-messages">
     <ul class="chat-messages">
+      <li class="me message">
         <h5>
           teste
         </h5>  
@@ -55,20 +61,19 @@
   </div>
 
   <div class="chat-box">
-    <form id="formMessage" method="post">
-      <input type="hidden" name="_csrfToken" value="{{ _view.request.getAttribute('csrfToken') }}">
-      <input type="hidden" id="name" name="name" value="{{ helper_Identity_get('name') }}">
+    <div class="form-msg">
       <div class="chat-input-box">
         <input class="chat-input" id="msg" name="message" placeholder="message..." type="text">
-        <button type="submit" class="chat-button" >env</button>
+        <button type="submit" class="chat-button" onclick="env_message()">env</button>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
 <script>
   //WebSocket
-const userToken = {{ token|json_encode()|raw }};
+const userToken = '{{ token|json_encode()|raw }}';
+
 var conn = new WebSocket("ws://127.0.0.1:8090/?token=" + userToken);
 
 var me_user_id = "{{ helper_Identity_get('id') }}";
@@ -77,11 +82,80 @@ var other_user_id = "";
     
 conn.onopen = function(e) {
   console.log("Connection established!");
+
+  load_users_list(me_user_id);
 };
 
 conn.onmessage = function(e) {
   var data = JSON.parse(e.data);
-  
-  console.log(data);
+
+  if(data.status){
+    if(data.response_load_users || data.response_search_user){
+        var html = '';
+      if(data.data_user.length > 0){
+
+      }else{
+        html = 'No User Found';
+      }
+
+      document.getElementById('user_list_area').innerHTML = html;
+    }
+  }
+
 };
+
+function load_users_list(me_user_id){
+  var data = {
+		me_user_id : me_user_id,
+		type : 'request_users_list'
+	};
+
+	conn.send(JSON.stringify(data));
+}
+
+function search_user(me_user_id, search_query)
+{
+	if(search_query.length > 0)
+	{
+		var data = {
+			me_user_id : me_user_id,
+			search_query : search_query,
+			type : 'request_search_user'
+		};
+
+		conn.send(JSON.stringify(data));
+	}
+}
+
+function make_chat_area(user_id, other_user_id){
+	var html = `
+	<div id="chat_history"></div>
+	`;
+
+	document.getElementById('chat_area').innerHTML = html;
+
+	document.getElementById('chat_header').innerHTML = 'Chat with <b>'+other_user_id+'</b>';
+
+	other_user_id = user_id;
+}
+
+function env_message(){
+	document.querySelector('#send_button').disabled = true;
+
+	var message = document.getElementById('message_area').innerHTML.trim();
+
+	var data = {
+		message : message,
+		me_user_id : me_user_id,
+		other_user_id : other_user_id,
+		type : 'request_send_message'
+	};
+
+	conn.send(JSON.stringify(data));
+
+	document.querySelector('#message_area').innerHTML = '';
+
+	document.querySelector('#send_button').disabled = false;
+}
+
 </script>
