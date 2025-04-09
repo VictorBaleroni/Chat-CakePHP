@@ -30,19 +30,7 @@
   <div>
     <input type="text" autocomplete="off" placeholder="Search..." onkeyup="search_user('{{ helper_Identity_get('id') }}', this.value);">
   </div>
-
-  <div id="user_list_area"></div>
-  
-  <ul>
-      <form action="" method="post">
-        <button type="submit" class="button-user" name="userid" value="">
-        <li>
-          <i class="fa fa-home fa-2x"></i>
-          <p>teste</p>
-        </li>
-        </button>
-      </form>
-  </ul>
+    <div id="user_list_area"></div>
 </nav>
 
 <div class="body-msg">
@@ -94,11 +82,11 @@ conn.onmessage = function(e) {
         html += '<ul>';
           for(var count = 0; count < data.data_user.length; count++){
             html += `
-            <li>
-              <div>
-                <div class="col col-9">`+data.data_user[count].name+`</div>
-              </div>
-            </li>
+            <button type="submit" class="button-user">
+              <li>
+                <p class="fa">`+data.data_user[count].name+`</p>
+              </li>
+            </button>
             `;
           }
         html += '</ul>';

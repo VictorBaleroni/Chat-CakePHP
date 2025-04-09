@@ -97,6 +97,7 @@ nav .wrapper{
 }
 
 .fa {
+  display: flex;
   display: table-cell;
   width: 60px;
   height: 50px;
