@@ -71,15 +71,57 @@ class ChatServer implements MessageComponentInterface{
             $response_data['response_load_users'] = true;
 
             foreach($this->clients as $client){
-                    if($client->resourceId == $sender_user_conn[0]->conn_id){
-                        $client->send(json_encode($response_data));
-                    }
+                if($client->resourceId == $sender_user_conn[0]->conn_id){
+                    $client->send(json_encode($response_data));
                 }
+            }
         }
 
         if($data->type == 'request_search_user'){
             
         }
+
+        if($data->type == 'request_all_messages'){
+            $msgsTable = TableRegistry::getTableLocator()->get('Messages');
+
+            $msgdata = $msgsTable->find()->select('id', 'me_user_id', 'other_user_id', 'msg')
+            ->where();
+        }
+
+        if($data->type == 'request_send_message'){
+            $msgsTable = TableRegistry::getTableLocator()->get('Messages');
+
+            $msg = $msgsTable->newEmptyEntity();
+
+            $msg->me_user_id = $data->me_user_id;
+            $msg->user_id = $data->me_user_id;
+            $msg->other_user_id = $data->other_user_id;
+            $msg->msg = $data->message;
+            $msgsTable->save($msg);
+
+            $message_id = $msg->id;
+
+            $usersTable = TableRegistry::getTableLocator()->get('Users');
+            
+            $receiver_conn_id = $usersTable->find()->select('conn_id')->where(['id IN' => $data->other_user_id])->all()->toArray();
+
+            $sender_conn_id = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all()->toArray();
+
+            foreach($this->clients as $client){
+                if($client->resourceId == $receiver_conn_id[0]->conn_id || $client->resourceId == $sender_conn_id[0]->conn_id){
+                    $send_data['chat_message_id'] = $message_id;
+                        
+                    $send_data['message'] = $data->message;
+
+                    $send_data['me_user_id'] = $data->me_user_id;
+
+                    $send_data['other_user_id'] = $data->other_user_id;
+
+                    $client->send(json_encode($send_data));
+                }
+            }
+        }
+
     }
 }
 

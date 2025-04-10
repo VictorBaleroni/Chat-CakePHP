@@ -45,14 +45,14 @@
         </p>
       </li> 
     </ul>
-  <div id="content" class="content"></div>
+  <div id="msg_area" class="content"></div>
   </div>
 
   <div class="chat-box">
     <div class="form-msg">
       <div class="chat-input-box">
-        <input class="chat-input" id="msg" name="message" placeholder="message..." type="text">
-        <button type="submit" class="chat-button" onclick="env_message()">env</button>
+        <input class="chat-input" id="input_msg" name="message" placeholder="message..." type="text">
+        <button type="submit" id="env_msg" class="chat-button" onclick="env_message()">env</button>
       </div>
     </div>
   </div>
@@ -75,14 +75,14 @@ conn.onopen = function(e) {
 
 conn.onmessage = function(e) {
   var data = JSON.parse(e.data);
-    
+
     if(data.response_load_users || data.response_search_user){
         var html = '';
         if(data.data_user.length > 0){
         html += '<ul>';
           for(var count = 0; count < data.data_user.length; count++){
             html += `
-            <button type="submit" class="button-user">
+            <button type="submit" class="button-user" onclick="make_chat_area(`+data.data_user[count].id+`, `+data.data_user[count].name+`);, load_data(`+me_user_id+`, `+data.data_user[count].id+`);">
               <li>
                 <p class="fa">`+data.data_user[count].name+`</p>
               </li>
@@ -108,10 +108,8 @@ function load_users_list(me_user_id){
 	conn.send(JSON.stringify(data));
 }
 
-function search_user(me_user_id, search_query)
-{
-	if(search_query.length > 0)
-	{
+function search_user(me_user_id, search_query){
+	if(search_query.length > 0){
 		var data = {
 			me_user_id : me_user_id,
 			search_query : search_query,
@@ -122,22 +120,30 @@ function search_user(me_user_id, search_query)
 	}
 }
 
-function make_chat_area(user_id, other_user_id){
+function make_chat_area(user_id, other_user_name){
 	var html = `
-	<div id="chat_history"></div>
+	  <div id="chat_history"></div>
 	`;
 
-	document.getElementById('chat_area').innerHTML = html;
+	document.getElementById('msg_area').innerHTML = html;
 
-	document.getElementById('chat_header').innerHTML = 'Chat with <b>'+other_user_id+'</b>';
+	document.getElementById('chat_header').innerHTML = 'Chat with <b>'+other_user_name+'</b>';
 
 	other_user_id = user_id;
 }
 
-function env_message(){
-	document.querySelector('#send_button').disabled = true;
+function load_data(me_user_id, other_user_name){
+	var data = {
+		me_user_id : me_user_id,
+		other_user_name : other_user_name,
+		type : 'request_all_messages'
+	};
+}
 
-	var message = document.getElementById('message_area').innerHTML.trim();
+function env_message(){
+	document.querySelector('#env_msg').disabled = true;
+
+	var message = document.getElementById('input_msg').value;
 
 	var data = {
 		message : message,
@@ -148,9 +154,9 @@ function env_message(){
 
 	conn.send(JSON.stringify(data));
 
-	document.querySelector('#message_area').innerHTML = '';
+	document.getElementById('input_msg').value = '';
 
-	document.querySelector('#send_button').disabled = false;
+	document.querySelector('#env_msg').disabled = false;
 }
 
 </script>
