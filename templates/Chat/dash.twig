@@ -84,6 +84,14 @@ conn.onmessage = function(e) {
           <p>`+data.message+`</p>
         </div>  
       `;
+    }else{
+      if(other_user_id != ''){
+        html += `
+        <div>
+          <p>`+data.message+`</p>
+        </div>  
+      `;
+      }
     }
     if(html != '')
 		{
@@ -128,6 +136,14 @@ conn.onmessage = function(e) {
       }
 
       document.getElementById('user_list_area').innerHTML = html;
+  }
+
+  if(data.response_from_user_chat_request){
+    
+  }
+
+  if(data.response_to_user_chat_request){
+
   }
 
 };

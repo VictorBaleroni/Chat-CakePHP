@@ -146,6 +146,9 @@ class ChatServer implements MessageComponentInterface{
             }
         }
 
+        if($data->type == 'request_chat_user'){
+
+        }
     }
 }
 
