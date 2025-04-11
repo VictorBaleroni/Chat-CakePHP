@@ -76,13 +76,46 @@ conn.onopen = function(e) {
 conn.onmessage = function(e) {
   var data = JSON.parse(e.data);
 
-    if(data.response_load_users || data.response_search_user){
+  if(data.message){
+    var html = '';
+    if(data.me_user_id == me_user_id){
+      html += `
+        <div>
+          <p>`+data.message+`</p>
+        </div>  
+      `;
+    }
+    if(html != '')
+		{
+			var prev_msg_element = document.querySelector('#chat_history');
+
+			var chat_all_element = document.querySelector('#chat_history');
+
+			chat_all_element.innerHTML = prev_msg_element.innerHTML + html;
+			//scroll_top(); 
+		}
+  }
+
+  if(data.chat_history){
+    var html = '';
+    console.log(data.chat_history);
+    for(var count = 0; count < data.chat_history.length; count++){
+      html +=`
+        <div>
+          <p>`+data.chat_history[count].message+`</p>
+        </div> 
+      `;
+    }
+    document.getElementById('chat_history').innerHTML = html;
+  }
+
+  if(data.response_load_users || data.response_search_user){
         var html = '';
         if(data.data_user.length > 0){
         html += '<ul>';
           for(var count = 0; count < data.data_user.length; count++){
             html += `
-            <button type="submit" class="button-user" onclick="make_chat_area(`+data.data_user[count].id+`, `+data.data_user[count].name+`);, load_data(`+me_user_id+`, `+data.data_user[count].id+`);">
+            <button type="submit" class="button-user" onclick="make_chat_area(`+data.data_user[count].id+`, '`+data.data_user[count].name+`'); load_data(`+me_user_id+`, `+data.data_user[count].id+`);">
               <li>
                 <p class="fa">`+data.data_user[count].name+`</p>
               </li>
@@ -95,7 +128,7 @@ conn.onmessage = function(e) {
       }
 
       document.getElementById('user_list_area').innerHTML = html;
-    }
+  }
 
 };
 
@@ -127,17 +160,19 @@ function make_chat_area(user_id, other_user_name){
 
 	document.getElementById('msg_area').innerHTML = html;
 
-	document.getElementById('chat_header').innerHTML = 'Chat with <b>'+other_user_name+'</b>';
+	//document.getElementById('chat_header').innerHTML = 'Chat with <b>'+other_user_name+'</b>';
 
 	other_user_id = user_id;
 }
 
-function load_data(me_user_id, other_user_name){
+function load_data(me_user_id, other_user_id){
 	var data = {
 		me_user_id : me_user_id,
-		other_user_name : other_user_name,
+		other_user_id : other_user_id,
 		type : 'request_all_messages'
 	};
+
+  conn.send(JSON.stringify(data));
 }
 
 function env_message(){

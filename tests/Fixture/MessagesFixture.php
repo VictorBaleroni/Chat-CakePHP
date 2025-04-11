@@ -21,9 +21,10 @@ class MessagesFixture extends TestFixture
             [
                 'id' => 1,
                 'msg' => 'Lorem ipsum dolor sit amet',
-                'user_id' => 1,
-                'created_at' => 1741120259,
-                'updated_at' => 1741120259,
+                'me_user_id' => 1,
+                'other_user_id' => 1,
+                'created_at' => 1744384257,
+                'updated_at' => 1744384257,
             ],
         ];
         parent::init();

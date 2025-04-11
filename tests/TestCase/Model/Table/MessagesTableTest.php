@@ -25,7 +25,6 @@ class MessagesTableTest extends TestCase
      */
     protected array $fixtures = [
         'app.Messages',
-        'app.Users',
     ];
 
     /**
@@ -59,17 +58,6 @@ class MessagesTableTest extends TestCase
      * @uses \App\Model\Table\MessagesTable::validationDefault()
      */
     public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses \App\Model\Table\MessagesTable::buildRules()
-     */
-    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

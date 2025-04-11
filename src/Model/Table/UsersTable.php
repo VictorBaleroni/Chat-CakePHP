@@ -8,8 +8,10 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+
 class UsersTable extends Table
 {
+   
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -17,12 +19,9 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
-        $this->hasMany('Messages', [
-            'foreignKey' => 'user_id',
-        ]);
     }
 
+ 
     public function validationDefault(Validator $validator): Validator
     {
         $validator
@@ -44,6 +43,17 @@ class UsersTable extends Table
             ->notEmptyString('password');
 
         $validator
+            ->scalar('token')
+            ->maxLength('token', 255)
+            ->requirePresence('token', 'create')
+            ->notEmptyString('token');
+
+        $validator
+            ->integer('conn_id')
+            ->requirePresence('conn_id', 'create')
+            ->notEmptyString('conn_id');
+
+        $validator
             ->dateTime('created_at')
             ->notEmptyDateTime('created_at');
 
@@ -54,6 +64,7 @@ class UsersTable extends Table
         return $validator;
     }
 
+    
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);

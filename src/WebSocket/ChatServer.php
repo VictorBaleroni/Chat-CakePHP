@@ -84,8 +84,33 @@ class ChatServer implements MessageComponentInterface{
         if($data->type == 'request_all_messages'){
             $msgsTable = TableRegistry::getTableLocator()->get('Messages');
 
-            $msgdata = $msgsTable->find()->select('id', 'me_user_id', 'other_user_id', 'msg')
-            ->where();
+            $sender_msg = $msgsTable->find()->select(['id', 'msg', 'me_user_id', 'other_user_id'])
+            ->where(['OR' => [['me_user_id' => $data->me_user_id, 'other_user_id' => $data->other_user_id],
+            ['me_user_id' => $data->other_user_id, 'other_user_id' => $data->me_user_id]]])
+            ->orderByAsc('id')->all()->toArray();
+
+            $item_data_history = array();
+
+            foreach($sender_msg as $hd){
+                $item_data_history[] = array(
+                    'id' => $hd['id'],
+                    'message' => $hd['msg'],
+                    'me_user_id' => $hd['me_user_id'],
+                    'other_user_id' => $hd['other_user_id'],
+                );
+            }
+
+            $usersTable = TableRegistry::getTableLocator()->get('Users');
+
+            $send_data['chat_history'] = $item_data_history;
+
+            $receiver_conn_id = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all()->toArray();
+
+            foreach($this->clients as $client){
+                if($client->resourceId == $receiver_conn_id[0]->conn_id){
+                    $client->send(json_encode($send_data));
+                }
+            }
         }
 
         if($data->type == 'request_send_message'){
@@ -94,7 +119,6 @@ class ChatServer implements MessageComponentInterface{
             $msg = $msgsTable->newEmptyEntity();
 
             $msg->me_user_id = $data->me_user_id;
-            $msg->user_id = $data->me_user_id;
             $msg->other_user_id = $data->other_user_id;
             $msg->msg = $data->message;
             $msgsTable->save($msg);
