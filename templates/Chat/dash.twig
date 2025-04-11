@@ -70,6 +70,7 @@ var other_user_id = "";
     
 conn.onopen = function(e) {
   console.log("Connection established!");
+
   load_users_list(me_user_id);
 };
 
@@ -80,23 +81,26 @@ conn.onmessage = function(e) {
     var html = '';
     if(data.me_user_id == me_user_id){
       html += `
-        <div>
+      <ul class="chat-messages">
+        <li class="me message">
           <p>`+data.message+`</p>
-        </div>  
-      `;
+        </li>  
+      </ul>
+        `;
     }else{
       if(other_user_id != ''){
         html += `
-        <div>
-          <p>`+data.message+`</p>
-        </div>  
+        <ul class="chat-messages">
+          <li class="other message">
+            <p>`+data.message+`</p>
+          </li>  
+        </ul>
       `;
       }
     }
     if(html != '')
 		{
 			var prev_msg_element = document.querySelector('#chat_history');
-
 			var chat_all_element = document.querySelector('#chat_history');
 
 			chat_all_element.innerHTML = prev_msg_element.innerHTML + html;
@@ -108,11 +112,23 @@ conn.onmessage = function(e) {
     var html = '';
     console.log(data.chat_history);
     for(var count = 0; count < data.chat_history.length; count++){
-      html +=`
-        <div>
-          <p>`+data.chat_history[count].message+`</p>
-        </div> 
+      if(data.chat_history[count].me_user_id == me_user_id){
+        html +=`
+          <ul class="chat-messages">
+            <li class="me message">
+              <p>`+data.chat_history[count].message+`</p>
+            </li>
+          </ul> 
+        `;
+      }else{
+        html +=`
+        <ul class="chat-messages">
+          <li class="other message">
+            <p>`+data.chat_history[count].message+`</p>
+          </li>
+        </ul> 
       `;
+      }
     }
     document.getElementById('chat_history').innerHTML = html;
   }
@@ -137,15 +153,6 @@ conn.onmessage = function(e) {
 
       document.getElementById('user_list_area').innerHTML = html;
   }
-
-  if(data.response_from_user_chat_request){
-    
-  }
-
-  if(data.response_to_user_chat_request){
-
-  }
-
 };
 
 function load_users_list(me_user_id){
@@ -153,7 +160,6 @@ function load_users_list(me_user_id){
 		me_user_id : me_user_id,
 		type : 'request_users_list'
 	};
-
 	conn.send(JSON.stringify(data));
 }
 
@@ -164,7 +170,6 @@ function search_user(me_user_id, search_query){
 			search_query : search_query,
 			type : 'request_search_user'
 		};
-
 		conn.send(JSON.stringify(data));
 	}
 }
@@ -187,27 +192,22 @@ function load_data(me_user_id, other_user_id){
 		other_user_id : other_user_id,
 		type : 'request_all_messages'
 	};
-
   conn.send(JSON.stringify(data));
 }
 
 function env_message(){
-	document.querySelector('#env_msg').disabled = true;
-
 	var message = document.getElementById('input_msg').value;
-
+if(other_user_id){
 	var data = {
 		message : message,
 		me_user_id : me_user_id,
 		other_user_id : other_user_id,
 		type : 'request_send_message'
 	};
-
 	conn.send(JSON.stringify(data));
+}
 
 	document.getElementById('input_msg').value = '';
-
-	document.querySelector('#env_msg').disabled = false;
 }
 
 </script>
