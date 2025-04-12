@@ -35,24 +35,16 @@
 
 <div class="body-msg">
   <div class="text-messages">
-    <ul class="chat-messages">
-      <li class="me message">
-        <h5>
-          teste
-        </h5>  
-        <p>
-          teste
-        </p>
-      </li> 
-    </ul>
   <div id="msg_area" class="content"></div>
   </div>
 
   <div class="chat-box">
     <div class="form-msg">
       <div class="chat-input-box">
+      <form id="form-users">
         <input class="chat-input" id="input_msg" name="message" placeholder="message..." type="text">
-        <button type="submit" id="env_msg" class="chat-button" onclick="env_message()">env</button>
+        <button type="submit" id="env_msg" class="chat-button">env</button>
+      </form>
       </div>
     </div>
   </div>
@@ -110,7 +102,7 @@ conn.onmessage = function(e) {
 
   if(data.chat_history){
     var html = '';
-    console.log(data.chat_history);
+
     for(var count = 0; count < data.chat_history.length; count++){
       if(data.chat_history[count].me_user_id == me_user_id){
         html +=`
@@ -195,19 +187,24 @@ function load_data(me_user_id, other_user_id){
   conn.send(JSON.stringify(data));
 }
 
-function env_message(){
-	var message = document.getElementById('input_msg').value;
-if(other_user_id){
-	var data = {
-		message : message,
-		me_user_id : me_user_id,
-		other_user_id : other_user_id,
-		type : 'request_send_message'
-	};
-	conn.send(JSON.stringify(data));
-}
+const form_env = document.getElementById('form-users');
+form_env.addEventListener('submit', e => {
+    e.preventDefault();
+    var message = document.getElementById('input_msg').value;
+    
+    if(other_user_id){
+      var data = {
+        message : message,
+        me_user_id : me_user_id,
+        other_user_id : other_user_id,
+        type : 'request_send_message'
+      };
+      conn.send(JSON.stringify(data));
+    }
+    
+    document.getElementById('input_msg').value = '';
+});
 
-	document.getElementById('input_msg').value = '';
-}
+
 
 </script>

@@ -192,7 +192,13 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 70%;  
+}
+.chat-input-box form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 .chat-input{
   border:none !important;
