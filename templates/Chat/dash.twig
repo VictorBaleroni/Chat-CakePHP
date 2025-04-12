@@ -5,6 +5,8 @@
 <nav>
   <div class="wrapper">
     <div class="logo"><a href="#">Chat</a></div>
+    <div class="user-att" id="user-att"></div>
+
     <ul class="nav-links">
       <li>
         <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
@@ -27,8 +29,8 @@
 </nav>
 
 <nav class="main-menu">
-  <div>
-    <input type="text" autocomplete="off" placeholder="Search..." onkeyup="search_user('{{ helper_Identity_get('id') }}', this.value);">
+  <div class="search-box">
+    <input type="text" autocomplete="off" placeholder="Pesquisar..." onkeyup="search_user('{{ helper_Identity_get('id') }}', this.value);">
   </div>
     <div id="user_list_area"></div>
 </nav>
@@ -42,7 +44,7 @@
     <div class="form-msg">
       <div class="chat-input-box">
       <form id="form-users">
-        <input class="chat-input" id="input_msg" name="message" placeholder="message..." type="text">
+        <input class="chat-input" id="input_msg" name="message" placeholder="Envie sua mensagem..." type="text">
         <button type="submit" id="env_msg" class="chat-button">env</button>
       </form>
       </div>
@@ -96,7 +98,7 @@ conn.onmessage = function(e) {
 			var chat_all_element = document.querySelector('#chat_history');
 
 			chat_all_element.innerHTML = prev_msg_element.innerHTML + html;
-			//scroll_top(); 
+			scroll_botton();
 		}
   }
 
@@ -123,6 +125,7 @@ conn.onmessage = function(e) {
       }
     }
     document.getElementById('chat_history').innerHTML = html;
+    scroll_botton();
   }
 
   if(data.response_load_users || data.response_search_user){
@@ -146,6 +149,10 @@ conn.onmessage = function(e) {
       document.getElementById('user_list_area').innerHTML = html;
   }
 };
+
+function scroll_botton(){
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'auto' }); 
+}
 
 function load_users_list(me_user_id){
   var data = {
@@ -173,7 +180,7 @@ function make_chat_area(user_id, other_user_name){
 
 	document.getElementById('msg_area').innerHTML = html;
 
-	//document.getElementById('chat_header').innerHTML = 'Chat with <b>'+other_user_name+'</b>';
+	document.getElementById('user-att').innerHTML = 'Chat com <b>'+other_user_name+'</b>';
 
 	other_user_id = user_id;
 }
@@ -204,7 +211,4 @@ form_env.addEventListener('submit', e => {
     
     document.getElementById('input_msg').value = '';
 });
-
-
-
 </script>
