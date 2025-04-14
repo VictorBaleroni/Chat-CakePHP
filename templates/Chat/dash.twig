@@ -163,14 +163,14 @@ function load_users_list(me_user_id){
 }
 
 function search_user(me_user_id, search_query){
-	if(search_query.length > 0){
-		var data = {
+  setTimeout(function(){
+    var data = {
 			me_user_id : me_user_id,
 			search_query : search_query,
 			type : 'request_search_user'
 		};
-		conn.send(JSON.stringify(data));
-	}
+    conn.send(JSON.stringify(data));
+  }, 200);
 }
 
 function make_chat_area(user_id, other_user_name){

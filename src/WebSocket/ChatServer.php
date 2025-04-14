@@ -49,11 +49,9 @@ class ChatServer implements MessageComponentInterface{
         if($data->type == 'request_users_list'){
             $usersTable = TableRegistry::getTableLocator()->get('Users');
 
-            $userData = $usersTable->find()
-                ->select(['id', 'name'])
+            $userData = $usersTable->find()->select(['id', 'name'])
                 ->where(['id NOT IN' => $data->me_user_id])
-                ->orderByAsc('name')
-                ->all()->toArray();
+                ->orderByAsc('name')->all()->toArray();
 
             $item_data = array();
 
@@ -78,7 +76,33 @@ class ChatServer implements MessageComponentInterface{
         }
 
         if($data->type == 'request_search_user'){
-            
+            $usersTable = TableRegistry::getTableLocator()->get('Users');
+
+            $userData = $usersTable->find()->select(['id', 'name'])
+                ->where(['id NOT IN' => $data->me_user_id])
+                ->where(['name LIKE' => '%'. $data->search_query .'%'])
+                ->orderByAsc('name')->all()->toArray();
+
+            $item_data = array();
+
+            foreach($userData as $ud){
+                $item_data[] = array(
+                    'name' => $ud['name'],
+                    'id' => $ud['id']
+                );
+            }
+
+            $sender_user_conn = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all()->toArray();
+
+            $response_data['data_user'] = $item_data;
+
+            $response_data['response_search_user'] = true;
+
+            foreach($this->clients as $client){
+                if($client->resourceId == $sender_user_conn[0]->conn_id){
+                    $client->send(json_encode($response_data));
+                }
+            }
         }
 
         if($data->type == 'request_all_messages'){
