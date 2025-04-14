@@ -12,7 +12,7 @@ nav{
   position: fixed;
   z-index: 99;
   width: 100%;
-  background: #242526;
+  background: #0a0a5c;
 }
 nav .wrapper{
   position: relative;
@@ -113,7 +113,7 @@ nav .wrapper{
   font-size:20px;
 }
 .main-menu {
-  background:#212121;
+  background:#18182f;
   top: 70px;
   bottom:0;
   left:0;
@@ -159,8 +159,8 @@ nav .wrapper{
 
 .text-messages{
   padding-bottom: 5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 .chat-messages{
 	display: flex;
@@ -170,7 +170,7 @@ nav .wrapper{
 	list-style-type: none;
 	margin: 0;
 }
-.message {
+.message{
 	background-color: rgba(255, 255, 255, 0.9);
 	border-radius: 10px;
 	box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.5);
@@ -183,6 +183,7 @@ nav .wrapper{
 .me{
   align-self: flex-end;
 	padding: 15px 70px 15px 20px;
+  background-color: #a4eba4;
 }
 
 .chat-box{
@@ -196,7 +197,7 @@ nav .wrapper{
   height: 90px;
   position: fixed;
   width: 100%;
-  background: #2b2c2c;
+  background: #c6c6c6;
 }
 .chat-input-box{
   display: flex;
