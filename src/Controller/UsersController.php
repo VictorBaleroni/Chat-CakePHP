@@ -56,6 +56,14 @@ class UsersController extends AppController{
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
 
+    public function edit(){
+        $this->render('profile_user');
+    }
+
+    public function update(){
+        
+    }
+
     public function logout(){
         $this->Authentication->logout();
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);

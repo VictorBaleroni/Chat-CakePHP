@@ -4,14 +4,24 @@
 
 <nav>
   <div class="wrapper">
-    <div class="logo"><a href="#">Chat</a></div>
+    <div class="logo"><a href="">Chat</a></div>
     <div class="user-att" id="user-att"></div>
 
     <ul class="nav-links">
       <li>
         <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
+      <div class="sub-inputs">
         <ul class="drop-menu">
-          <li><a href="#">Profile</a></li>
+          <li>
+            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'edit'}) }}">Profile</a>
+            {# {{ helper_Form_create(null, {
+              'url' : {
+                'controller' : 'Users',
+                'action' : 'edit'}
+            }) }}
+              <input type="submit" value="Profile">
+            {{ helper_Form_end() }} #}
+          </li>
           <li>
             {{ helper_Form_create(null, {
                 'url' : {
@@ -22,6 +32,7 @@
             {{ helper_Form_end() }}
           </li>
         </ul>
+      </div>
       </li>
     </ul>
     <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
