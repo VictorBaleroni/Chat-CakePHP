@@ -3,45 +3,48 @@
 {{ helper_html_css('profile') }}
 
 <nav>
-    <div class="wrapper">
-        <div class="logo"><a href="">Chat</a></div>
-        <div class="user-att" id="user-att"></div>
-    
-        <ul class="nav-links">
+  <div class="wrapper">
+    <div class="logo"><a href="">Chat</a></div>
+    <div class="user-att" id="user-att"></div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
+      <div class="sub-inputs">
+        <ul class="drop-menu">
           <li>
-            <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
-          <div class="sub-inputs">
-            <ul class="drop-menu">
-              <li>
-                <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'dash'}) }}">Chat</a>
-              </li>
-              <li>
-                <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'logout'}) }}">Sair</a>
-              </li>
-            </ul>
-          </div>
+            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'dash'}) }}">Chat</a>
+          </li>
+          <li>
+            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'logout'}) }}">Sair</a>
           </li>
         </ul>
-        <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
       </div>
+      </li>
+    </ul>
+    <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+  </div>
 </nav>
 
 <div class="profile_container">
     <div class="profile_header">
-        <div>
-            Profile
+        <div class="profile_title">
+            Alterar Perfil
         </div>
         <div class="profile_form">
-            {{ helper_Form_create(null, {
-              'url' : {
-                'controller' : 'Users',
-                'action' : 'update'}
-            }) }}
-              <label for="name">Name</label>
-              <input type="text" name="name" id="" placeholder="{{ helper_Identity_get('name') }}" placeholder="Nome" class="input_profile">
-              <label for="email">Email</label> 
-              <input type="email" name="email" id="" placeholder="{{ helper_Identity_get('name') }}" placeholder="Nome" class="input_profile">
-              {{ helper_Form_end() }}
+          {{ helper_Form_create(null, {
+            'url' : {
+              'controller' : 'Users',
+              'action' : 'update'}
+          }) }}
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="{{ helper_Identity_get('name') }}"  class="input_name">
+            <label for="email">Email</label> 
+            <input type="email" name="email" placeholder="{{ helper_Identity_get('email') }}"  class="input_email">
+            <label for="password">Password</label> 
+            <input type="password" name="password" placeholder="********" class="input_password">
+            <button class="button" type="submit">Salvar</button>
+          {{ helper_Form_end() }}
         </div>
     </div>
 </div>

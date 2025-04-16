@@ -11,24 +11,23 @@
 <div class="flash">
     {{ helper_Flash_render() }}
 </div>
-{{ helper_Form_create(null, {
-    'url' : {
-        'controller' : 'Users',
-        'action' : 'login'}
-    })
- }}
-    <label for="email">Email</label>
-    <input type="email" name="email" placeholder="Email" id="email">
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="Password" id="password">
-    <button class="button" type="submit">Login</button>
-{{ helper_Form_end() }}
-<div class="link-cad">
-    {{ helper_Html_link(
-        'Não tem uma conta? Clique aqui!',{
-        'controller' : 'Users',
-        'action' : 'create'
-        })
-    }}
+    {{ helper_Form_create(null, {
+        'url' : {
+            'controller' : 'Users',
+            'action' : 'login'}
+        }) }}
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Email" id="email">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password" id="password">
+        <button class="button" type="submit">Login</button>
+    {{ helper_Form_end() }}
+
+    <div class="link-cad">
+        {{ helper_Html_link(
+            'Não tem uma conta? Clique aqui!',{
+            'controller' : 'Users',
+            'action' : 'create'
+            }) }}
     </div>
 </div>

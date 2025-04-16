@@ -13,7 +13,7 @@
       <div class="sub-inputs">
         <ul class="drop-menu">
           <li>
-            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'edit'}) }}">Profile</a>
+            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'edit'}) }}">Perfil</a>
           </li>
           <li>
             <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'logout'}) }}">Sair</a>
@@ -206,7 +206,6 @@ form_env.addEventListener('submit', e => {
       };
       conn.send(JSON.stringify(data));
     }
-    
     document.getElementById('input_msg').value = '';
 });
 </script>
