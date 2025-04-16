@@ -10,6 +10,7 @@ return function (RouteBuilder $routes): void {
     $routes->connect('/create', ['controller' => 'Users', 'action' => 'create']);
     $routes->connect('/store', ['controller' => 'Users', 'action' => 'store']);
     $routes->connect('/profile', ['controller' => 'Users', 'action' => 'edit']);
+    $routes->connect('/update', ['controller' => 'Users', 'action' => 'update']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/chat', ['controller' => 'Users', 'action' => 'dash']);
 };

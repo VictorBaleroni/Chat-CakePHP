@@ -14,22 +14,9 @@
         <ul class="drop-menu">
           <li>
             <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'edit'}) }}">Profile</a>
-            {# {{ helper_Form_create(null, {
-              'url' : {
-                'controller' : 'Users',
-                'action' : 'edit'}
-            }) }}
-              <input type="submit" value="Profile">
-            {{ helper_Form_end() }} #}
           </li>
           <li>
-            {{ helper_Form_create(null, {
-                'url' : {
-                'controller' : 'Users',
-                'action' : 'logout'}
-            }) }}
-              <input type="submit" value="Logout">
-            {{ helper_Form_end() }}
+            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'logout'}) }}">Sair</a>
           </li>
         </ul>
       </div>

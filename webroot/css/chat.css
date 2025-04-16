@@ -104,20 +104,6 @@ nav .wrapper{
 .drop-menu li a:hover{
   background: #1414b4;
 }
-.drop-menu li input{
-  width: 100%;
-  display: block;
-  background: #101090;
-  color: #f2f2f2;
-  cursor: pointer;
-  padding: 8px 16px;
-  border: none;
-  font-size: 18px;
-  text-align: center;
-}
-.drop-menu li input:hover{
-  background: #1414b4;
-}
 .wrapper .btn{
   color: #fff;
   font-size: 20px;
