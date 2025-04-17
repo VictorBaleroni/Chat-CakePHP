@@ -61,7 +61,16 @@ class UsersController extends AppController{
     }
 
     public function update(){
-        
+        $tableUsers = TableRegistry::getTableLocator()->get('Users');
+        $userid = $this->Authentication->getIdentity()->id;
+        $user = $tableUsers->get($userid);
+
+        $requestUser = $this->request->getData();
+        $user->name = $requestUser['name'];
+        $user->email = $requestUser['email'];
+        $user->password = $requestUser['password'];
+        $tableUsers->save($user);
+        return $this->render('profile_user');
     }
 
     public function logout(){
