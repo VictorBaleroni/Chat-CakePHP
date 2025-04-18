@@ -23,21 +23,22 @@ class ChatServer implements MessageComponentInterface{
             $tableUsers = TableRegistry::getTableLocator()->get('Users');
             
             $tableUsers->updateAll(
-                ['conn_id' => $conn->resourceId],
+                [['conn_id' => $conn->resourceId], ['status' => 'Online']],
                 ['token' => $uriarray['token']]
             );
 
             $users_id = $tableUsers->find()->select(['id'])
-            ->where(['token' => $uriarray['token']])->all();
+            ->where(['token' => $uriarray['token']])->all()->toArray();
 
-            $send_data['id'] = $users_id;
+            $send_data['id'] = $users_id[0]->id;
+            $send_data['status'] = 'Online';
 
             foreach($this->clients as $client){
                 if($client->resourceId != $conn->resourceId){
                     $client->send(json_encode($send_data));
                 }
             }
-
+            
             echo "New connection! ({$conn->resourceId}), ({$uriarray['token']})\n";    
         }
     }
@@ -49,7 +50,7 @@ class ChatServer implements MessageComponentInterface{
         if($data->type == 'request_users_list'){
             $usersTable = TableRegistry::getTableLocator()->get('Users');
 
-            $userData = $usersTable->find()->select(['id', 'name'])
+            $userData = $usersTable->find()->select(['id', 'name', 'status'])
                 ->where(['id NOT IN' => $data->me_user_id])
                 ->orderByAsc('name')->all()->toArray();
 
@@ -57,8 +58,9 @@ class ChatServer implements MessageComponentInterface{
 
             foreach($userData as $ud){
                 $item_data[] = array(
+                    'id' => $ud['id'],
                     'name' => $ud['name'],
-                    'id' => $ud['id']
+                    'status' => $ud['status']
                 );
             }
 
@@ -187,8 +189,20 @@ class ChatServer implements MessageComponentInterface{
 
             $tableUsers = TableRegistry::getTableLocator()->get('Users');
             $tableUsers->updateAll(
-            ['conn_id' => 0],
+            [['conn_id' => 0], ['status' => 'Offline']],
             ['token' => $uriarray['token']]);
+
+            $users_id = $tableUsers->find()->select(['id'])
+            ->where(['token' => $uriarray['token']])->all()->toArray();
+
+            $send_data['id'] = $users_id[0]->id;
+            $send_data['status'] = 'Offline';
+
+            foreach($this->clients as $client){
+                if($client->resourceId != $conn->resourceId){
+                    $client->send(json_encode($send_data));
+                }
+            }
 
             echo "Connection {$conn->resourceId} has disconnected\n";
         }

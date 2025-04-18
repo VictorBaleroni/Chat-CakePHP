@@ -21,6 +21,7 @@ class User extends BaseMigration
         ]);
         $table->addColumn('token', 'string');
         $table->addColumn('conn_id', 'integer');
+        $table->addColumn('status', 'string', ['limit' => 10, 'default' => 'Offline']);
         $table->addColumn('created_at', 'timestamp', [
             'default' => 'CURRENT_TIMESTAMP',
         ]);

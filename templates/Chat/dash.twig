@@ -69,6 +69,65 @@ conn.onopen = function(e) {
 conn.onmessage = function(e) {
   var data = JSON.parse(e.data);
 
+  if(data.status){
+    var count_users = document.getElementsByClassName('num_users');
+
+    for(var count = 0; count < count_users.length; count++){
+      if(data.status == 'Online'){
+        document.getElementById('status_'+data.id).classList.add("online_users");
+
+        document.getElementById('status_'+data.id).classList.remove("offline_users");
+
+        document.getElementById('status_'+data.id+'').innerHTML = 'Online';
+      }else{
+        document.getElementById('status_'+data.id).classList.add("offline_users");
+
+        document.getElementById('status_'+data.id).classList.remove("online_users");
+
+        document.getElementById('status_'+data.id+'').innerHTML = 'Offline';
+      }
+    }
+  }
+
+  if(data.response_load_users || data.response_search_user){
+    var html = '';
+    if(data.data_user.length > 0){
+    html += '<ul>';
+      for(var count = 0; count < data.data_user.length; count++){
+        html += `
+        <button type="submit" class="button-user" onclick="make_chat_area(`+data.data_user[count].id+`, '`+data.data_user[count].name+`'); load_data(`+me_user_id+`, `+data.data_user[count].id+`);">
+          <li>
+            <p class="fa">`+data.data_user[count].name+`</p>
+          </li>
+
+          <div>
+          `;
+          if(data.data_user[count].status == 'Online' ){
+            html += `
+              <p class="num_users online_users" id="status_`+data.data_user[count].id+`">
+                `+data.data_user[count].status+`
+              </p>
+            `;
+          }else{
+            html += `
+              <p class="num_users offline_users" id="status_`+data.data_user[count].id+`">
+                `+data.data_user[count].status+`
+              </p>
+            `;
+          }
+
+        html += `
+          </div>
+        </button>
+        `;        
+    }
+    html += '</ul>';
+  }else{
+    html = 'No User Found';
+  }
+  document.getElementById('user_list_area').innerHTML = html;
+  }
+
   if(data.message){
     var html = '';
     if(data.me_user_id == me_user_id){
@@ -124,27 +183,6 @@ conn.onmessage = function(e) {
     }
     document.getElementById('chat_history').innerHTML = html;
     scroll_botton();
-  }
-
-  if(data.response_load_users || data.response_search_user){
-        var html = '';
-        if(data.data_user.length > 0){
-        html += '<ul>';
-          for(var count = 0; count < data.data_user.length; count++){
-            html += `
-            <button type="submit" class="button-user" onclick="make_chat_area(`+data.data_user[count].id+`, '`+data.data_user[count].name+`'); load_data(`+me_user_id+`, `+data.data_user[count].id+`);">
-              <li>
-                <p class="fa">`+data.data_user[count].name+`</p>
-              </li>
-            </button>
-            `;
-          }
-        html += '</ul>';
-      }else{
-        html = 'No User Found';
-      }
-
-      document.getElementById('user_list_area').innerHTML = html;
   }
 };
 

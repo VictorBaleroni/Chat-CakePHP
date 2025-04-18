@@ -30,7 +30,8 @@ class UsersController extends AppController{
     public function dash(){
         $tableUsers = TableRegistry::getTableLocator()->get('Users');
             $userToken = md5(uniqid());
-            $user = $tableUsers->get($this->Authentication->getIdentity()->id);
+            $userid = $this->Authentication->getIdentity()->id;
+            $user = $tableUsers->get($userid);
             $user->token = $userToken;
             $tableUsers->save($user);
 

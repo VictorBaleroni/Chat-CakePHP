@@ -147,6 +147,12 @@ nav .wrapper{
   border-radius: 5px;
   border: none;
 }
+.online_users{
+color: forestgreen;
+}
+.offline_users{
+  color: red;
+}
 .button-user{
   display:table;
   color: #999;
@@ -164,7 +170,6 @@ nav .wrapper{
   padding-top: 5rem;
   padding-left: 250px;
 }
-
 .text-messages{
   padding-bottom: 5rem;
   padding-left: 4rem;
