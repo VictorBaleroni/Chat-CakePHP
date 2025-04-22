@@ -42,6 +42,11 @@ class UsersTable extends Table
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
 
+            $validator
+            ->scalar('img')
+            ->maxLength('img', 255)
+            ->requirePresence('img', 'create');
+
         $validator
             ->scalar('token')
             ->maxLength('token', 255)

@@ -8,15 +8,12 @@
     <div class="user-att" id="user-att"></div>
     <ul class="nav-links">
       <li>
-        
-          <a href="">
-            <div class="user-sep">
-              <img src="https://i.imgur.com/G4EjwqQ.jpg"/>
-              <p>{{ helper_Identity_get('name') }}</p>
-            </div>
-          </a>
-        
-      <div class="sub-inputs">
+        <a href="">
+          <div class="user-sep">
+            <img src="/img/profile-imgs/{{ helper_Identity_get('img') }}"/>
+            <p>{{ helper_Identity_get('name') }}</p>
+          </div>
+        </a>
         <ul class="drop-menu">
           <li>
             <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'edit'}) }}">Perfil</a>
@@ -25,10 +22,8 @@
             <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'logout'}) }}">Sair</a>
           </li>
         </ul>
-      </div>
       </li>
     </ul>
-    <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
   </div>
 </nav>
 
@@ -109,6 +104,7 @@ conn.onmessage = function(e) {
               `;
             }
           html += `
+              <img class="user-img" src="/img/profile-imgs/`+data.data_user[count].user_img+`"/>
               <p class="user-name">`+data.data_user[count].name+`</p>
           `;
         html += `
@@ -119,9 +115,9 @@ conn.onmessage = function(e) {
     }
     html += '</ul>';
   }else{
-    html = 'No User Found';
+    html = '<p style="color:white">Usuarios não encontrados!</p>';
   }
-  document.getElementById('user_list_area').innerHTML = html;
+    document.getElementById('user_list_area').innerHTML = html;
   }
 
   if(data.message){

@@ -19,6 +19,7 @@ class User extends BaseMigration
             'limit' => 255,
             'null' => false,
         ]);
+        $table->addColumn('img', 'string');
         $table->addColumn('token', 'string');
         $table->addColumn('conn_id', 'integer');
         $table->addColumn('status', 'string', ['limit' => 10, 'default' => 'Offline']);

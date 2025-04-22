@@ -11,17 +11,13 @@ class User extends Entity{
         'name' => true,
         'email' => true,
         'password' => true,
+        'img' => true,
         'token' => true,
         'conn_id' => true,
         'created_at' => true,
         'updated_at' => true,
     ];
 
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var list<string>
-     */
     protected array $_hidden = [
         'password',
         'token',

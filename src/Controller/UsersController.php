@@ -48,10 +48,13 @@ class UsersController extends AppController{
         $tableUsers = TableRegistry::getTableLocator()->get('Users');
         $user = $tableUsers->newEmptyEntity();
 
+        $imgPath = 'lhama'.rand(1, 4).'.jpeg';
+        
         $requestUser = $this->request->getData();
         $user->name = $requestUser['name'];
         $user->email = $requestUser['email'];
         $user->password = $requestUser['password'];
+        $user->img = $imgPath;
         $tableUsers->save($user);
 
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);

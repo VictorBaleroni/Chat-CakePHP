@@ -50,7 +50,7 @@ class ChatServer implements MessageComponentInterface{
         if($data->type == 'request_users_list'){
             $usersTable = TableRegistry::getTableLocator()->get('Users');
 
-            $userData = $usersTable->find()->select(['id', 'name', 'status'])
+            $userData = $usersTable->find()->select(['id', 'name', 'status', 'img'])
                 ->where(['id NOT IN' => $data->me_user_id])
                 ->orderByAsc('name')->all()->toArray();
 
@@ -60,9 +60,10 @@ class ChatServer implements MessageComponentInterface{
                 $item_data[] = array(
                     'id' => $ud['id'],
                     'name' => $ud['name'],
-                    'status' => $ud['status']
+                    'status' => $ud['status'],
+                    'user_img' => $ud['img']
                 );
-            }
+        }
 
             $sender_user_conn = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all()->toArray();
 

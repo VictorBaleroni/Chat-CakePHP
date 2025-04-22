@@ -16,10 +16,7 @@ nav{
 }
 nav .wrapper{
   position: relative;
-  max-width: 1300px;
-  padding: 0px 30px;
   height: 70px;
-  line-height: 70px;
   margin: auto;
   display: flex;
   align-items: center;
@@ -30,6 +27,7 @@ nav .wrapper{
   font-size: 30px;
   font-weight: 600;
   text-decoration: none;
+  padding-left: 50px;
 }
 .user-sep{
   display: flex;
@@ -58,9 +56,8 @@ nav .wrapper{
 .nav-links li{
   list-style: none;
 }
-.sub-inputs{
-  display: flex;
-  justify-content: center;
+.nav-links{
+  padding-right: 5rem;
 }
 .nav-links li a{
   color: #f2f2f2;
@@ -151,18 +148,20 @@ nav .wrapper{
   height: 10px;
   background-color: red;
   border-radius: 50%;
+  margin-right: 5px;
 }
 .green-circle{
   width: 10px;
   height: 10px;
   background-color: forestgreen;
   border-radius: 50%;
+  margin-right: 5px;
 }
-.online_users{
-color: forestgreen;
-}
-.offline_users{
-  color: red;
+.user-img{
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
 }
 .button-user{
   display:table;
