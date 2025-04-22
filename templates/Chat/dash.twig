@@ -6,10 +6,16 @@
   <div class="wrapper">
     <div class="logo"><a href="">Chat</a></div>
     <div class="user-att" id="user-att"></div>
-
     <ul class="nav-links">
       <li>
-        <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
+        
+          <a href="">
+            <div class="user-sep">
+              <img src="https://i.imgur.com/G4EjwqQ.jpg"/>
+              <p>{{ helper_Identity_get('name') }}</p>
+            </div>
+          </a>
+        
       <div class="sub-inputs">
         <ul class="drop-menu">
           <li>
@@ -35,7 +41,7 @@
 
 <div class="body-msg">
   <div class="text-messages">
-  <div id="msg_area" class="content"></div>
+    <div id="msg_area" class="content"></div>
   </div>
 
   <div class="chat-box">
@@ -74,17 +80,11 @@ conn.onmessage = function(e) {
 
     for(var count = 0; count < count_users.length; count++){
       if(data.status == 'Online'){
-        document.getElementById('status_'+data.id).classList.add("online_users");
-
-        document.getElementById('status_'+data.id).classList.remove("offline_users");
-
-        document.getElementById('status_'+data.id+'').innerHTML = 'Online';
+        document.getElementById('status_'+data.id).classList.add("green-circle");
+        document.getElementById('status_'+data.id).classList.remove("red-circle");
       }else{
-        document.getElementById('status_'+data.id).classList.add("offline_users");
-
-        document.getElementById('status_'+data.id).classList.remove("online_users");
-
-        document.getElementById('status_'+data.id+'').innerHTML = 'Offline';
+        document.getElementById('status_'+data.id).classList.add("red-circle");
+        document.getElementById('status_'+data.id).classList.remove("green-circle");
       }
     }
   }
@@ -97,29 +97,25 @@ conn.onmessage = function(e) {
         html += `
         <button type="submit" class="button-user" onclick="make_chat_area(`+data.data_user[count].id+`, '`+data.data_user[count].name+`'); load_data(`+me_user_id+`, `+data.data_user[count].id+`);">
           <li>
-            <p class="fa">`+data.data_user[count].name+`</p>
-          </li>
-
-          <div>
+            <div class="user-list-div">
+        `;
+            if(data.data_user[count].status == 'Online' ){
+              html += `
+                <div class="num_users green-circle" id="status_`+data.data_user[count].id+`"></div>
+              `;
+            }else{
+              html += `
+                <div class="num_users red-circle" id="status_`+data.data_user[count].id+`"></div>
+              `;
+            }
+          html += `
+              <p class="user-name">`+data.data_user[count].name+`</p>
           `;
-          if(data.data_user[count].status == 'Online' ){
-            html += `
-              <p class="num_users online_users" id="status_`+data.data_user[count].id+`">
-                `+data.data_user[count].status+`
-              </p>
-            `;
-          }else{
-            html += `
-              <p class="num_users offline_users" id="status_`+data.data_user[count].id+`">
-                `+data.data_user[count].status+`
-              </p>
-            `;
-          }
-
         html += `
-          </div>
+            </div>
+          </li>
         </button>
-        `;        
+        `;
     }
     html += '</ul>';
   }else{
