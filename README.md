@@ -20,3 +20,5 @@
 * Ratchet 0.4.4
 
 # Como Inicializar o Projeto
+* Crie banco mysql ```chat_db```
+* 
