@@ -1,6 +1,6 @@
 <h1>Chat em Cake PHP com Websockets</h1>
 
-### Chat para multiplos usuarios simultaneos em tempo real, ultilizando ratchet para implementação de websockets.
+### Chat para multiplos usuarios simultaneos em tempo real, utilizando ratchet para implementação de websockets.
 
 <p align="center">
 <img width="600px" src="https://github.com/user-attachments/assets/1e910666-1db7-4b74-ac26-60d0651a3694">
@@ -19,6 +19,13 @@
 * MySQL
 * Ratchet 0.4.4
 
+
 # Como Inicializar o Projeto
-* Crie banco mysql ```chat_db```
-* 
+* Crie banco de dados mysql ```chat_db``` foi utilizado phpMyAdmin do xampp.
+* No terminal execulte o comando ```composer update```
+* Va na pasta ```config/app_local.example.php``` renomeie o arquivo para ```app_local.php```.
+* No arquivo va até ```'host' => 'localhost'```, e abaixo modifique para as informações do seu banco, como o root para usuario etc.
+* No terminal digite o comando ```bin/cake migrations migrate``` para criar as tabelas.
+* Para iniciar o servidor:
+* No terminal para iniciar o site local: ```bin/cake server```
+* E não esqueça do servidor de websockets local: ```bin/cake socket-server```
