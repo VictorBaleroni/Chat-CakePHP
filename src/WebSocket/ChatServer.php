@@ -63,7 +63,7 @@ class ChatServer implements MessageComponentInterface{
                     'status' => $ud['status'],
                     'user_img' => $ud['img']
                 );
-        }
+            }
 
             $sender_user_conn = $usersTable->find()->select('conn_id')->where(['id IN' => $data->me_user_id])->all()->toArray();
 
@@ -173,10 +173,6 @@ class ChatServer implements MessageComponentInterface{
                     $client->send(json_encode($send_data));
                 }
             }
-        }
-
-        if($data->type == 'request_chat_user'){
-
         }
     }
 }
