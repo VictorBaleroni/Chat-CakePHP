@@ -27,5 +27,5 @@
 * No arquivo va até ```'host' => 'localhost'```, e abaixo modifique para as informações do seu banco, como o root para usuario etc.
 * No terminal digite o comando ```bin/cake migrations migrate``` para criar as tabelas.
 * Para iniciar o servidor:
-* No terminal para iniciar o site local: ```bin/cake server```
+* No terminal execulte o comando ```bin/cake server``` para iniciar o site local.
 * E não esqueça do servidor de websockets local: ```bin/cake socket-server```
