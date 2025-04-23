@@ -47,7 +47,7 @@ class UsersController extends AppController{
         $tableUsers = TableRegistry::getTableLocator()->get('Users');
         $user = $tableUsers->newEmptyEntity();
 
-        $imgPath = 'lhama'.rand(1, 4).'.jpeg';
+        $imgPath = 'user'.rand(1, 8).'.png';
         
         $requestUser = $this->request->getData();
 
