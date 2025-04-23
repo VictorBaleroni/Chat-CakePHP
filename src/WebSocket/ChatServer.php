@@ -81,7 +81,7 @@ class ChatServer implements MessageComponentInterface{
         if($data->type == 'request_search_user'){
             $usersTable = TableRegistry::getTableLocator()->get('Users');
 
-            $userData = $usersTable->find()->select(['id', 'name'])
+            $userData = $usersTable->find()->select(['id', 'name', 'status', 'img'])
                 ->where(['id NOT IN' => $data->me_user_id])
                 ->where(['name LIKE' => '%'. $data->search_query .'%'])
                 ->orderByAsc('name')->all()->toArray();
@@ -90,8 +90,10 @@ class ChatServer implements MessageComponentInterface{
 
             foreach($userData as $ud){
                 $item_data[] = array(
+                    'id' => $ud['id'],
                     'name' => $ud['name'],
-                    'id' => $ud['id']
+                    'status' => $ud['status'],
+                    'user_img' => $ud['img'],
                 );
             }
 

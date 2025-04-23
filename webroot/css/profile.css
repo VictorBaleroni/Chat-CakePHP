@@ -16,10 +16,7 @@ nav{
 }
 nav .wrapper{
   position: relative;
-  max-width: 1300px;
-  padding: 0px 30px;
   height: 70px;
-  line-height: 70px;
   margin: auto;
   display: flex;
   align-items: center;
@@ -30,6 +27,26 @@ nav .wrapper{
   font-size: 30px;
   font-weight: 600;
   text-decoration: none;
+  padding-left: 50px;
+}
+.user-sep{
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+  width: 90px;
+  height: 50px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.user-sep img{
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 100%;
+}
+.user-sep p{
+  padding-left: 5px;
 }
 .user-att{
   color: #f2f2f2;
@@ -39,23 +56,8 @@ nav .wrapper{
 .nav-links li{
   list-style: none;
 }
-.desktop-item{
-  position: relative;
-  text-decoration: none;
-}
-.desktop-item::after{
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  width: 50%; 
-  height: 2px;
-  background-color: white;
-  transform: translateX(-50%);
-}
-.sub-inputs{
-  display: flex;
-  justify-content: center;
+.nav-links{
+  padding-right: 5rem;
 }
 .nav-links li a{
   color: #f2f2f2;
@@ -65,9 +67,6 @@ nav .wrapper{
   padding: 9px 15px;
   border-radius: 5px;
   transition: all 0.3s ease;
-}
-.nav-links li a:hover{
-  background: #101090;
 }
 .li-items{
   display: flex;

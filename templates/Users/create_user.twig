@@ -8,7 +8,9 @@
 </div>
 <div class="form">
     <h3>User Registration</h3>
-
+    <div class="flash">
+        {{ helper_Flash_render() }}
+    </div>
 {{ helper_Form_create(null, {
     'url' : {
         'controller' : 'Users',

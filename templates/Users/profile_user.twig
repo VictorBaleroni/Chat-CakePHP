@@ -6,23 +6,24 @@
   <div class="wrapper">
     <div class="logo"><a href="">Chat</a></div>
     <div class="user-att" id="user-att"></div>
-
     <ul class="nav-links">
       <li>
-        <a href="" class="desktop-item">{{ helper_Identity_get('name') }}</a>
-      <div class="sub-inputs">
+        <a href="">
+          <div class="user-sep">
+            <img src="/img/profile-imgs/{{ helper_Identity_get('img') }}"/>
+            <p>{{ helper_Identity_get('name') }}</p>
+          </div>
+        </a>
         <ul class="drop-menu">
           <li>
-            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'dash'}) }}">Chat</a>
+            <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'dash'}) }}">Voltar</a>
           </li>
           <li>
             <a href="{{ helper_Url_build({'controller' : 'Users', 'action' : 'logout'}) }}">Sair</a>
           </li>
         </ul>
-      </div>
       </li>
     </ul>
-    <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
   </div>
 </nav>
 

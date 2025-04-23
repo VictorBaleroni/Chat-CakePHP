@@ -21,9 +21,8 @@ class UsersController extends AppController{
                 return $this->redirect($redirect);
             }
         }
-        // Display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error(__('Invalid username or password'));
+            $this->Flash->error(__('Nome ou senha incorreta!'));
         }
     }
 
@@ -51,12 +50,17 @@ class UsersController extends AppController{
         $imgPath = 'lhama'.rand(1, 4).'.jpeg';
         
         $requestUser = $this->request->getData();
-        $user->name = $requestUser['name'];
-        $user->email = $requestUser['email'];
-        $user->password = $requestUser['password'];
-        $user->img = $imgPath;
-        $tableUsers->save($user);
 
+        if($requestUser['name'] != '' && $requestUser['email'] != '' && $requestUser['password'] != ''){
+            $user->name = $requestUser['name'];
+            $user->email = $requestUser['email'];
+            $user->password = $requestUser['password'];
+            $user->img = $imgPath;
+            $tableUsers->save($user);
+        }else{
+            $this->Flash->error(__('Complete os campos abaixo!'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'create']);
+        }
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
 

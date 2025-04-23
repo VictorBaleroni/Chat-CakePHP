@@ -131,7 +131,7 @@ nav .wrapper{
   width: 100%;
   height: 40px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   border: none;
 }
 .user-name {
@@ -219,7 +219,7 @@ nav .wrapper{
   height: 90px;
   position: fixed;
   width: 100%;
-  background: #c6c6c6;
+  background: rgb(177, 177, 177);
 }
 .chat-input-box{
   display: flex;
@@ -234,19 +234,20 @@ nav .wrapper{
   width: 100%;
 }
 .chat-input{
-  border:none !important;
+  display: block;
   width: 100%;
   height: 50px;
   padding: 10px;
   margin-right: 5px;
-  border-radius: 5px;
+  background-color: white;
+  border-radius: 3px;
 }
 .chat-button{
   cursor: pointer;
-  color:#fff;
-  background-color: #4f6ebd;
+  color: white;
+  background-color: #101090;
   height: 40px;
   width: 100px;
-  border-radius: 5px;
+  border-radius: 3px;
   font-size: 14pt;
 }
