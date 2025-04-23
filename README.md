@@ -7,5 +7,6 @@
 </p>
 ### Tela inicial para login e cadastro.
 
+<p align="center">
 <img width="600px" src="https://github.com/user-attachments/assets/6e3ad10a-439d-40c3-ba57-af937f9a6190">
-
+</p>
