@@ -29,3 +29,4 @@
 * Para iniciar o servidor:
 * No terminal execulte o comando ```bin/cake server``` para iniciar o site local.
 * E não esqueça do servidor de websockets local: ```bin/cake socket-server```
+### Crie minimo de dois usuários um no navegador anonimo para se comunicarem!
